@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bold & Modern Medical Laboratory Design System */
+
+@layer base {
+  :root {
+    /* Core backgrounds - Clean white with subtle warmth */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 10%;
+
+    /* Cards & surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+
+    /* Primary - Deep Purple */
+    --primary: 265 84% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Rich Teal */
+    --secondary: 174 72% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted surfaces */
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 5% 45%;
+
+    /* Accent - Vibrant Teal */
+    --accent: 174 60% 94%;
+    --accent-foreground: 174 72% 28%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Borders & inputs */
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 265 84% 42%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 240 5% 98%;
+    --sidebar-foreground: 240 10% 20%;
+    --sidebar-primary: 265 84% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 265 60% 95%;
+    --sidebar-accent-foreground: 265 84% 35%;
+    --sidebar-border: 240 6% 90%;
+    --sidebar-ring: 265 84% 42%;
+  }
+
+  .dark {
+    --background: 240 10% 6%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 10% 9%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 10% 9%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 265 70% 60%;
+    --primary-foreground: 240 10% 6%;
+
+    --secondary: 174 60% 45%;
+    --secondary-foreground: 240 10% 6%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 60%;
+
+    --accent: 174 40% 15%;
+    --accent-foreground: 174 60% 70%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 80% 45%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
+    --ring: 265 70% 60%;
+
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 265 70% 60%;
+    --sidebar-primary-foreground: 240 10% 6%;
+    --sidebar-accent: 265 50% 15%;
+    --sidebar-accent-foreground: 265 70% 70%;
+    --sidebar-border: 240 10% 18%;
+    --sidebar-ring: 265 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-foreground;
+  }
+}
+
+@layer components {
+  /* Bold gradient backgrounds */
+  .bg-gradient-hero {
+    background: linear-gradient(135deg, hsl(265 84% 42% / 0.08) 0%, hsl(174 72% 40% / 0.05) 50%, hsl(0 0% 100%) 100%);
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, hsl(265 84% 42%) 0%, hsl(265 70% 55%) 100%);
+  }
+
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, hsl(174 72% 40%) 0%, hsl(174 60% 50%) 100%);
+  }
+
+  .bg-gradient-mixed {
+    background: linear-gradient(135deg, hsl(265 84% 42%) 0%, hsl(174 72% 40%) 100%);
+  }
+
+  /* Glass effect for cards */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50;
+  }
+
+  /* Bold text gradients */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, hsl(265 84% 42%) 0%, hsl(174 72% 40%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+
+  /* Bold button styles */
+  .btn-bold {
+    @apply font-semibold px-8 py-4 rounded-xl transition-all duration-300;
+  }
+
+  /* Animated underline */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom shadows */
+  .shadow-bold {
+    box-shadow: 0 10px 40px -10px hsl(265 84% 42% / 0.25);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 4px 20px -5px hsl(240 10% 10% / 0.08);
+  }
+
+  .shadow-glow-primary {
+    box-shadow: 0 0 40px -10px hsl(265 84% 42% / 0.4);
+  }
+
+  .shadow-glow-secondary {
+    box-shadow: 0 0 40px -10px hsl(174 72% 40% / 0.4);
+  }
+
+  /* Animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+}
