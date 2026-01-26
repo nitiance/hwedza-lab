@@ -1,189 +1,321 @@
-import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
   MessageCircle,
-  Send,
-  CheckCircle
+  ShieldCheck,
+  CheckCircle2,
+  FileText,
 } from "lucide-react";
-import reception from "@/assets/reception.jpg";
+import { useMemo, useState } from "react";
+import {
+  LAB,
+  buildMailtoLink,
+  buildMapsEmbedUrl,
+  buildMapsLink,
+  buildTelLink,
+  buildWhatsAppLink,
+} from "@/config/lab";
+
+function buildBookingMessage(params: {
+  name?: string;
+  test?: string;
+  preferredDay?: string;
+  notes?: string;
+}) {
+  const { name, test, preferredDay, notes } = params;
+
+  const lines = [
+    `Hello ${LAB.name}.`,
+    name?.trim() ? `My name is ${name.trim()}.` : "",
+    test?.trim() ? `I would like to book: ${test.trim()}.` : "I would like to book a lab test.",
+    preferredDay?.trim() ? `Preferred day/time: ${preferredDay.trim()}.` : "",
+    notes?.trim() ? `Notes: ${notes.trim()}` : "",
+    "Please advise pricing, any preparation needed (if applicable), and when I should come in.",
+  ].filter(Boolean);
+
+  return lines.join("\n");
+}
 
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [test, setTest] = useState("");
+  const [preferredDay, setPreferredDay] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const message = useMemo(
+    () => buildBookingMessage({ name, test, preferredDay, notes }),
+    [name, test, preferredDay, notes]
+  );
+
+  const whatsappLink = useMemo(() => buildWhatsAppLink(message), [message]);
+
+  const mailtoLink = useMemo(() => {
+    const subject = `Booking / Enquiry — ${LAB.name}`;
+    return buildMailtoLink(subject, message);
+  }, [message]);
 
   return (
     <Layout>
-      {/* Hero */}
+      {/* HERO */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="container relative">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              Contact Us
+              Contact
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Get in <span className="text-primary">Touch</span>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              Book a Test or Ask a Question
             </h1>
-            <p className="text-lg text-muted-foreground">
-              We're here to help. Reach out with any questions about our laboratory services.
+
+            <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+              Contact us for test availability, pricing guidance, and typical turnaround times.
+              Your information is handled respectfully and confidentially.
             </p>
+
+            {/* Primary actions */}
+            <div className="flex flex-wrap gap-3 mt-7">
+              <Button asChild size="lg" className="rounded-xl font-semibold">
+                <a href={whatsappLink} target="_blank" rel="noreferrer">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Book on WhatsApp
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                className="rounded-xl font-semibold bg-background text-foreground hover:bg-background/90"
+              >
+                <a href={buildTelLink()}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call Now
+                </a>
+              </Button>
+
+              <Button asChild size="lg" variant="outline" className="rounded-xl font-semibold">
+                <a href={buildMapsLink()} target="_blank" rel="noreferrer">
+                  <MapPin className="mr-2 h-5 w-5" />
+                  Directions
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Content */}
-      <section className="py-16">
+      {/* CONTENT */}
+      <section className="pb-24">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div className="relative rounded-3xl overflow-hidden">
-                <img 
-                  src={reception} 
-                  alt="Wedza Medical Laboratory" 
-                  className="w-full object-cover aspect-video"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 text-background">
-                  <h3 className="font-bold text-xl mb-1">Visit Us Today</h3>
-                  <p className="text-background/80">B24 Complex, Wedza District</p>
-                </div>
-              </div>
-              
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-bold">
-                      <MapPin className="h-6 w-6 text-primary-foreground" />
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            {/* LEFT */}
+            <div className="space-y-6">
+              {/* Info cards */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="bg-card border border-border rounded-2xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
+                      <Phone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-bold mb-1">Location</h3>
-                      <p className="text-muted-foreground">B24 Complex, Wedza District, Zimbabwe</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-secondary flex items-center justify-center flex-shrink-0 shadow-glow-secondary">
-                      <Clock className="h-6 w-6 text-secondary-foreground" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Opening Hours</h3>
-                      <p className="text-muted-foreground">Monday – Friday: 8:00 AM – 4:30 PM</p>
-                      <p className="text-muted-foreground">Saturday: 8:00 AM – 12:00 PM</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <Phone className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Phone</h3>
-                      <a href="tel:+263000000000" className="text-muted-foreground hover:text-primary transition-colors">
-                        +263 000 000 000
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <Mail className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Email</h3>
-                      <a href="mailto:info@wedzalab.co.zw" className="text-muted-foreground hover:text-primary transition-colors">
-                        info@wedzalab.co.zw
+                      <div className="font-bold">Phone</div>
+                      <a
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        href={buildTelLink()}
+                      >
+                        {LAB.phoneDisplay}
                       </a>
                     </div>
                   </div>
                 </div>
+
+                <div className="bg-card border border-border rounded-2xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
+                      <Mail className="h-5 w-5 text-secondary" />
+                    </div>
+                    <div>
+                      <div className="font-bold">Email</div>
+                      <a
+                        className="text-muted-foreground hover:text-foreground transition-colors break-all"
+                        href={mailtoLink}
+                      >
+                        {LAB.email}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-card border border-border rounded-2xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-bold">Location</div>
+                      <div className="text-muted-foreground">{LAB.addressFull}</div>
+                      <a
+                        className="inline-flex items-center gap-2 text-sm mt-2 text-primary hover:underline"
+                        href={buildMapsLink()}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open directions <ArrowRight className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-card border border-border rounded-2xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
+                      <Clock className="h-5 w-5 text-secondary" />
+                    </div>
+                    <div>
+                      <div className="font-bold">Opening Hours</div>
+                      <div className="text-muted-foreground">{LAB.hours.weekdays}</div>
+                      <div className="text-muted-foreground">{LAB.hours.saturday}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* WhatsApp Button */}
-              <a
-                href="https://wa.me/263000000000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-[#25D366] text-white px-6 py-4 rounded-xl font-semibold hover:bg-[#20bd5a] transition-colors shadow-lg"
-              >
-                <MessageCircle className="h-6 w-6" />
-                Chat on WhatsApp
-              </a>
+              {/* Booking form */}
+              <div className="bg-card border border-border rounded-2xl p-7">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck className="h-5 w-5 text-primary" />
+                  <h2 className="text-xl font-bold">Quick Booking Message</h2>
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  Fill in the details below. We’ll generate a ready-to-send message for WhatsApp or email.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-semibold">Your name</label>
+                    <Input
+                      className="mt-2"
+                      placeholder="e.g. Tendai M."
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-semibold">Test needed</label>
+                    <Input
+                      className="mt-2"
+                      placeholder="e.g. FBC / Blood Sugar / HIV / Urinalysis"
+                      value={test}
+                      onChange={(e) => setTest(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="text-sm font-semibold">Preferred day/time</label>
+                    <Input
+                      className="mt-2"
+                      placeholder="e.g. Tomorrow morning / Saturday 10AM"
+                      value={preferredDay}
+                      onChange={(e) => setPreferredDay(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="text-sm font-semibold">Notes (optional)</label>
+                    <Textarea
+                      className="mt-2 min-h-[120px]"
+                      placeholder="Any extra details or questions (e.g. results collection, pricing, fasting requirements)..."
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Message preview */}
+                <div className="mt-6 rounded-2xl border border-border bg-muted/30 p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FileText className="h-5 w-5 text-secondary" />
+                    <div className="font-semibold">Preview</div>
+                    <div className="text-xs text-muted-foreground">(This is what will be sent)</div>
+                  </div>
+                  <pre className="whitespace-pre-wrap text-sm text-muted-foreground leading-relaxed font-sans">
+                    {message}
+                  </pre>
+                </div>
+
+                <div className="flex flex-wrap gap-3 mt-6">
+                  <Button asChild className="rounded-xl font-semibold">
+                    <a href={whatsappLink} target="_blank" rel="noreferrer">
+                      <MessageCircle className="mr-2 h-5 w-5" />
+                      Send via WhatsApp
+                    </a>
+                  </Button>
+
+                  <Button asChild variant="outline" className="rounded-xl font-semibold">
+                    <a href={mailtoLink}>
+                      <Mail className="mr-2 h-5 w-5" />
+                      Send via Email
+                    </a>
+                  </Button>
+                </div>
+
+                <div className="mt-6 text-sm text-muted-foreground">
+                  <div className="flex gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-secondary mt-0.5" />
+                    <p>
+                      This website provides general information only. For diagnosis and treatment,
+                      consult a qualified healthcare provider.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Contact Form */}
-            <div>
-              <div className="bg-card p-8 md:p-10 rounded-3xl border border-border shadow-soft">
-                <h2 className="text-2xl font-bold mb-2">Send Us a Message</h2>
-                <p className="text-muted-foreground mb-8">Fill out the form and we'll get back to you soon.</p>
-                
-                {submitted ? (
-                  <div className="text-center py-12">
-                    <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="h-10 w-10 text-success" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                    <p className="text-muted-foreground mb-8">
-                      Thank you for reaching out. We'll get back to you soon.
-                    </p>
-                    <Button variant="outline" onClick={() => setSubmitted(false)} className="rounded-xl font-semibold">
-                      Send Another Message
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name" className="font-semibold">Full Name</Label>
-                        <Input id="name" placeholder="Your name" required className="rounded-xl py-5" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone" className="font-semibold">Phone Number</Label>
-                        <Input id="phone" type="tel" placeholder="Your phone number" required className="rounded-xl py-5" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="font-semibold">Email (Optional)</Label>
-                      <Input id="email" type="email" placeholder="Your email address" className="rounded-xl py-5" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message" className="font-semibold">Message</Label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="How can we help you?" 
-                        rows={5}
-                        required 
-                        className="rounded-xl resize-none"
-                      />
-                    </div>
-                    <Button type="submit" className="w-full rounded-xl font-semibold py-6 text-base shadow-bold">
-                      <Send className="mr-2 h-5 w-5" />
-                      Send Message
-                    </Button>
-                  </form>
-                )}
+            {/* RIGHT */}
+            <div className="space-y-6">
+              <div className="bg-card border border-border rounded-2xl overflow-hidden">
+                <div className="p-6 border-b border-border">
+                  <h2 className="text-xl font-bold">Find Us</h2>
+                  <p className="text-muted-foreground mt-2">{LAB.addressFull}</p>
+                </div>
+
+                <div className="aspect-[16/11] w-full">
+                  <iframe
+                    title="Map"
+                    src={buildMapsEmbedUrl()}
+                    className="w-full h-full"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
               </div>
 
-              {/* Note */}
-              <div className="mt-6 p-5 bg-muted/50 rounded-xl border border-border">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> This is for general inquiries only. For urgent medical concerns, 
-                  please visit the laboratory directly or contact your healthcare provider.
-                </p>
+              <div className="bg-card border border-border rounded-2xl p-7">
+                <h3 className="text-lg font-bold mb-3">Before you come</h3>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                    <span>Bring your clinician’s request form if you have one.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                    <span>Ask if your test needs preparation (for example, fasting).</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                    <span>We’ll guide you on expected turnaround time for your test.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
