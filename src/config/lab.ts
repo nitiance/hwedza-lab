@@ -1,4 +1,4 @@
-// src/config/lab.ts
+// File: src/config/lab.ts
 
 export const LAB = {
   name: "Wedza Medical Laboratory",
@@ -7,7 +7,7 @@ export const LAB = {
   phoneDisplay: "+263 000 000 000",
   phoneTel: "+263000000000",
 
-  // WhatsApp (usually same as phoneTel, but keep separate)
+  // WhatsApp (use same format as phoneTel but with country code)
   whatsappNumber: "+263000000000",
 
   // Email
@@ -17,44 +17,47 @@ export const LAB = {
   addressShort: "B24 Complex, Wedza",
   addressFull: "B24 Complex, Wedza District, Zimbabwe",
 
-  // Hours (editable)
+  // Opening hours
   hours: {
-    weekdays: "Mon–Fri: 8:00 AM – 4:30 PM",
-    saturday: "Sat: 8:00 AM – 12:00 PM",
+    weekdays: "Mon–Fri 8:00–16:30",
+    saturday: "Sat 8:00–12:00",
   },
 
-  // ✅ This is what your Home/About are using
+  // ✅ One line used by Home/About
   hoursLine: "Mon–Fri 8:00–16:30 • Sat 8:00–12:00",
 
-  /**
-   * Map handling:
-   * Option A (recommended): put a google maps search string (works even without exact coordinates)
-   */
-  mapsQuery: "B24 Complex, Wedza District, Zimbabwe",
+  // ✅ Real coordinates (18.61917° S, 31.57027° E)
+  coords: {
+    lat: -18.61917,
+    lng: 31.57027,
+  },
 } as const;
 
-/** tel:+263... */
-export function buildTelLink() {
-  return `tel:${LAB.phoneTel}`;
-}
+export const buildTelLink = () => `tel:${LAB.phoneTel}`;
 
-/** mailto: with encoded subject/body */
-export function buildMailtoLink(subject: string, body: string) {
-  return `mailto:${LAB.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
+export const buildWhatsAppLink = (message: string) => {
+  const msg = encodeURIComponent(message);
+  const num = LAB.whatsappNumber.replace("+", "");
+  return `https://wa.me/${num}?text=${msg}`;
+};
 
-/** https://wa.me/<digits>?text=... */
-export function buildWhatsAppLink(message: string) {
-  const digits = LAB.whatsappNumber.replace(/\D/g, "");
-  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
-}
+export const buildMailtoLink = (subject: string, body: string) => {
+  const s = encodeURIComponent(subject);
+  const b = encodeURIComponent(body);
+  return `mailto:${LAB.email}?subject=${s}&body=${b}`;
+};
 
-/** Open Google Maps search */
-export function buildMapsLink() {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(LAB.mapsQuery)}`;
-}
+export const buildMapsLink = () => {
+  // Opens Google Maps with coordinates
+  const { lat, lng } = LAB.coords;
+  return `https://www.google.com/maps?q=${lat},${lng}`;
+};
 
-/** Google Maps embed (simple + reliable) */
-export function buildMapsEmbedUrl() {
-  return `https://www.google.com/maps?q=${encodeURIComponent(LAB.mapsQuery)}&output=embed`;
-}
+export const buildMapsEmbedUrl = () => {
+  // No API key version. Works fine for embedding.
+  const { lat, lng } = LAB.coords;
+  return `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+};
+
+// Handy one-liner used in Home/About
+export const LAB_HOURS_LINE = `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;

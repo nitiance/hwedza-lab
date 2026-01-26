@@ -111,39 +111,42 @@ const Index = () => {
   return (
     <Layout>
       {/* HERO */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[78vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroLab} alt={LAB.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/78 to-foreground/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 to-transparent" />
+
+          {/* STRONGER overlay = readable text/buttons */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/10" />
+          <div className="absolute inset-0 bg-black/10" />
         </div>
 
-        <div className="container relative z-10 pt-28 pb-16">
-          <div className="max-w-3xl space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/10 backdrop-blur-sm border border-background/20 text-background/90">
+        <div className="container relative z-10 pt-24 sm:pt-28 pb-10 sm:pb-16">
+          <div className="max-w-3xl space-y-6 sm:space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/20 backdrop-blur-sm border border-border/40 text-foreground">
               <Sparkles className="h-4 w-4 text-secondary" />
               <span className="text-sm font-medium">Reliable • Affordable • Timely</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-background">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-foreground">
               Your Health,{" "}
               <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                 Our Priority
               </span>
             </h1>
 
-            <p className="text-xl text-background/80 leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
               At {LAB.name}, we serve our community with accurate and accessible laboratory testing.
               Every sample represents a person, a family, and a life—so we handle every test with care,
               respect, and confidentiality.
             </p>
 
-            {/* Primary actions */}
-            <div className="flex flex-wrap gap-4 pt-2">
+            {/* Primary actions (stack on mobile) */}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-1">
               <Button
                 size="lg"
                 asChild
-                className="rounded-xl font-semibold text-base px-8 py-6 bg-gradient-secondary shadow-glow-secondary hover:opacity-90 transition-all"
+                className="rounded-xl font-semibold text-base px-7 py-6 bg-gradient-secondary shadow-glow-secondary hover:opacity-90 transition-all w-full sm:w-auto"
               >
                 <a href={whatsappLink} target="_blank" rel="noreferrer">
                   Book on WhatsApp
@@ -154,7 +157,7 @@ const Index = () => {
               <Button
                 size="lg"
                 asChild
-                className="rounded-xl font-semibold text-base px-8 py-6 bg-background text-foreground hover:bg-background/90"
+                className="rounded-xl font-semibold text-base px-7 py-6 bg-background text-foreground hover:bg-background/90 w-full sm:w-auto"
               >
                 <a href={buildTelLink()}>
                   <Phone className="mr-2 h-5 w-5" />
@@ -166,30 +169,30 @@ const Index = () => {
                 size="lg"
                 variant="outline"
                 asChild
-                className="rounded-xl font-semibold text-base px-8 py-6 border-background/30 text-background hover:bg-background/10 backdrop-blur-sm"
+                className="rounded-xl font-semibold text-base px-7 py-6 border-border/60 text-foreground hover:bg-muted/40 w-full sm:w-auto"
               >
                 <Link to="/contact">Contact Page</Link>
               </Button>
             </div>
 
-            {/* Quick contact */}
-            <div className="flex flex-wrap items-center gap-6 pt-2 text-background/75">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5" />
-                <span className="font-medium">{LAB.addressShort}</span>
+            {/* Quick contact (wrap safe on mobile) */}
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 pt-1 text-muted-foreground">
+              <div className="flex items-start gap-2">
+                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <span className="font-medium leading-snug">{LAB.addressShort}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                <span className="font-medium">{LAB.hoursLine}</span>
+              <div className="flex items-start gap-2">
+                <Clock className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <span className="font-medium leading-snug">{LAB.hoursLine}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 rounded-full border-2 border-background/30 flex items-start justify-center p-2">
-            <div className="w-1.5 h-3 rounded-full bg-background/50 animate-pulse" />
+        {/* Scroll indicator (hide on very small screens) */}
+        <div className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-12 rounded-full border-2 border-border/60 flex items-start justify-center p-2">
+            <div className="w-1.5 h-3 rounded-full bg-muted-foreground/60 animate-pulse" />
           </div>
         </div>
       </section>
@@ -197,7 +200,7 @@ const Index = () => {
       {/* TRUST STRIP */}
       <section className="py-10 bg-muted/30">
         <div className="container">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustPoints.map((item, idx) => (
               <div key={idx} className="bg-card border border-border rounded-2xl p-6">
                 <div className="w-12 h-12 rounded-xl bg-gradient-primary/10 flex items-center justify-center mb-4">
@@ -212,21 +215,23 @@ const Index = () => {
       </section>
 
       {/* SERVICES */}
-      <section className="py-24 bg-gradient-hero">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-hero">
         <div className="container">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 sm:mb-16">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
               Our Services
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Essential Lab Testing</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+              Essential Lab Testing
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               We support everyday healthcare needs with reliable tests for patients, clinics, and hospitals.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => (
-              <div key={index} className="group bg-card rounded-2xl border border-border p-8 hover-lift">
+              <div key={index} className="group bg-card rounded-2xl border border-border p-7 sm:p-8 hover-lift">
                 <div
                   className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}
                 >
@@ -249,7 +254,7 @@ const Index = () => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-10 sm:mt-12 text-center">
             <p className="text-muted-foreground mb-6">
               Need a test not listed? We also offer <strong>sample referral services</strong> for specialized testing.
             </p>
@@ -264,10 +269,10 @@ const Index = () => {
       </section>
 
       {/* ABOUT PREVIEW */}
-      <section className="py-24">
+      <section className="py-16 sm:py-20 lg:py-24">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="relative order-2 lg:order-1">
               <div className="relative z-10">
                 <img
                   src={scientistWorking}
@@ -284,15 +289,15 @@ const Index = () => {
               <div className="absolute -bottom-8 -right-8 w-48 h-48 rounded-full bg-gradient-primary opacity-20 blur-2xl" />
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
               <div>
                 <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
                   Who We Are
                 </span>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
                   Serving Wedza with <span className="text-primary">Integrity</span>
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                   {LAB.name} is a community-based diagnostic laboratory committed to supporting patients,
                   clinics, and hospitals with accurate laboratory results. We exist to improve health outcomes
                   in Wedza by making quality diagnostics accessible and trustworthy.
@@ -318,15 +323,15 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <Button asChild size="lg" variant="outline" className="rounded-xl font-semibold">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+                <Button asChild size="lg" variant="outline" className="rounded-xl font-semibold w-full sm:w-auto">
                   <Link to="/about">
                     Learn More About Us
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
 
-                <Button asChild size="lg" className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90">
+                <Button asChild size="lg" className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto">
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     Book on WhatsApp
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -339,16 +344,18 @@ const Index = () => {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="py-24 bg-muted/30">
+      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="order-2 lg:order-1">
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
                 Why Choose Us
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold mb-8">Quality You Can Trust</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">
+                Quality You Can Trust
+              </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 {[
                   {
                     title: "Accurate Results",
@@ -390,21 +397,23 @@ const Index = () => {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-24">
+      <section className="py-16 sm:py-20 lg:py-24">
         <div className="container">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10 sm:mb-14">
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
               Simple Process
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+              How It Works
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               A clear, respectful process—from arrival to results.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((step, idx) => (
-              <div key={idx} className="bg-card border border-border rounded-2xl p-7">
+              <div key={idx} className="bg-card border border-border rounded-2xl p-6 sm:p-7">
                 <div className="w-12 h-12 rounded-xl bg-gradient-secondary/10 flex items-center justify-center mb-4">
                   <step.icon className="h-6 w-6 text-secondary" />
                 </div>
@@ -417,22 +426,22 @@ const Index = () => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-24 bg-gradient-primary relative overflow-hidden">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-50 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')]" />
         <div className="container relative text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mb-4 sm:mb-6">
             Ready to Book Your Test?
           </h2>
-          <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto text-lg">
+          <p className="text-primary-foreground/80 mb-8 sm:mb-10 max-w-2xl mx-auto text-base sm:text-lg">
             Visit us at {LAB.addressFull}. If you have questions about pricing, test availability, or turnaround times,
             contact us and we’ll guide you.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
             <Button
               size="lg"
               asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 bg-background text-foreground hover:bg-background/90"
+              className="rounded-xl font-semibold text-base px-8 py-6 bg-background text-foreground hover:bg-background/90 w-full sm:w-auto"
             >
               <a href={whatsappLink} target="_blank" rel="noreferrer">
                 <MessageCircle className="mr-2 h-5 w-5" />
@@ -443,7 +452,7 @@ const Index = () => {
             <Button
               size="lg"
               asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 bg-transparent border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+              className="rounded-xl font-semibold text-base px-8 py-6 bg-transparent border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
             >
               <a href={buildTelLink()}>
                 <Phone className="mr-2 h-5 w-5" />
@@ -451,7 +460,12 @@ const Index = () => {
               </a>
             </Button>
 
-            <Button size="lg" variant="secondary" asChild className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg">
+            <Button
+              size="lg"
+              variant="secondary"
+              asChild
+              className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto"
+            >
               <Link to="/contact">
                 Contact Page
                 <ArrowRight className="ml-2 h-5 w-5" />
