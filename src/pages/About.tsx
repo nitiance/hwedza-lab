@@ -32,7 +32,7 @@ import scientistWorking from "@/assets/scientist-working.jpg";
 import executiveDirectorPortrait from "@/assets/team/executive-director.jpg";
 import ceoPortrait from "@/assets/team/chief-executive-officer.jpg";
 
-import { LAB, buildTelLink, buildWhatsAppLink } from "@/config/lab";
+import { LAB, LAB_HOURS_LINE, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
 const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`
@@ -191,7 +191,7 @@ const About = () => {
                 </div>
                 <div className="flex items-start gap-2">
                   <Clock className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                  <span className="font-medium leading-snug">{LAB.hoursLine}</span>
+                  <span className="font-medium leading-snug">{LAB_HOURS_LINE}</span>
                 </div>
               </div>
             </div>
