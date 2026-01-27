@@ -26,7 +26,7 @@ import scientistWorking from "@/assets/scientist-working.jpg";
 import bloodDraw from "@/assets/blood-draw.jpg";
 import microscopeCloseup from "@/assets/microscope-closeup.jpg";
 
-import { LAB, LAB_HOURS_LINE, buildTelLink, buildWhatsAppLink } from "@/config/lab";
+import { LAB, LAB_HOURS_LINE, LAB_HELPERS, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
 const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to book a lab test. Please help me with options, pricing, and when to come in.`

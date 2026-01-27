@@ -24,14 +24,24 @@ export const LAB = {
     saturday: "Saturday: 10:00 AM - 2:00 PM",
   },
 
-  // Convenience line used by UI
-  hoursLine: "Monday - Friday: 8:00 AM - 5:00 PM • Saturday: 10:00 AM - 2:00 PM",
-
   // Coordinates (your real coords)
   coords: {
     lat: -18.61917,
     lng: 31.57027,
   },
+} as const;
+
+/**
+ * Convenience strings used by pages
+ */
+export const LAB_HOURS_LINE = `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;
+
+/**
+ * If any page uses LAB.hoursLine, this keeps it working
+ * (without mutating LAB, we export a helper and recommend using LAB_HOURS_LINE)
+ */
+export const LAB_HELPERS = {
+  hoursLine: LAB_HOURS_LINE,
 } as const;
 
 export const buildTelLink = (tel: string = LAB.phoneTel) => `tel:${tel}`;
