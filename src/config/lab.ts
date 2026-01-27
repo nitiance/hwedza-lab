@@ -3,37 +3,37 @@
 export const LAB = {
   name: "Wedza Medical Laboratory",
 
-  // Phone
-  phoneDisplay: "+263 000 000 000",
-  phoneTel: "+263000000000",
+  // Phone (owners provided multiple numbers)
+  phoneDisplay: "+263 775 243 241",
+  phoneTel: "+263775243241",
+  phones: ["+263775243241", "+263773862907", "+263716308106"],
 
-  // WhatsApp (use same format as phoneTel but with country code)
-  whatsappNumber: "+263000000000",
+  // WhatsApp (pick primary; you can change if they want a different WhatsApp line)
+  whatsappNumber: "+263775243241",
 
   // Email
-  email: "info@wedzalab.co.zw",
+  email: "wmcl2014@gmail.com",
 
   // Address
-  addressShort: "B24 Complex, Wedza",
-  addressFull: "B24 Complex, Wedza District, Zimbabwe",
+  addressShort: "Wedza Centre",
+  addressFull: "Wedza Centre, Mashonaland East, Zimbabwe",
 
-  // Opening hours
+  // Opening hours (owners’ hours)
   hours: {
-    weekdays: "Mon–Fri 8:00–16:30",
-    saturday: "Sat 8:00–12:00",
+    weekdays: "Monday - Friday: 8:00 AM - 5:00 PM",
+    saturday: "Saturday: 10:00 AM - 2:00 PM",
   },
 
-  // ✅ One line used by Home/About
-  hoursLine: "Mon–Fri 8:00–16:30 • Sat 8:00–12:00",
-
-  // ✅ Real coordinates (18.61917° S, 31.57027° E)
+  // Coordinates (your real coords)
   coords: {
     lat: -18.61917,
     lng: 31.57027,
   },
 } as const;
 
-export const buildTelLink = () => `tel:${LAB.phoneTel}`;
+export const LAB_HOURS_LINE = `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;
+
+export const buildTelLink = (tel: string = LAB.phoneTel) => `tel:${tel}`;
 
 export const buildWhatsAppLink = (message: string) => {
   const msg = encodeURIComponent(message);
@@ -48,16 +48,11 @@ export const buildMailtoLink = (subject: string, body: string) => {
 };
 
 export const buildMapsLink = () => {
-  // Opens Google Maps with coordinates
   const { lat, lng } = LAB.coords;
   return `https://www.google.com/maps?q=${lat},${lng}`;
 };
 
 export const buildMapsEmbedUrl = () => {
-  // No API key version. Works fine for embedding.
   const { lat, lng } = LAB.coords;
   return `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
 };
-
-// Handy one-liner used in Home/About
-export const LAB_HOURS_LINE = `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;

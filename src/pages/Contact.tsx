@@ -63,6 +63,26 @@ const Contact = () => {
     return buildMailtoLink(subject, message);
   }, [message]);
 
+  // Phone list (supports your new config fields, but won’t crash if missing)
+  const phoneList: string[] = useMemo(() => {
+    const primary = LAB.phoneE164 || "";
+    const extras = (LAB as any).extraPhones || [];
+    return [primary, ...extras].filter(Boolean);
+  }, []);
+
+  const formatPhone = (p: string) => {
+    // light formatting only; keep safe for Zim numbers
+    if (p.startsWith("+263")) {
+      const rest = p.replace("+263", "").trim();
+      // group like: +263 775 243 241 (best-effort)
+      const g1 = rest.slice(0, 3);
+      const g2 = rest.slice(3, 6);
+      const g3 = rest.slice(6, 9);
+      return `+263 ${g1}${g2 ? " " + g2 : ""}${g3 ? " " + g3 : ""}`.trim();
+    }
+    return p;
+  };
+
   return (
     <Layout>
       {/* HERO */}
@@ -71,15 +91,15 @@ const Contact = () => {
         <div className="container relative">
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              Contact
+              Contact Us
             </span>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Book a Test or Ask a Question
+              Book a Test or Get in Touch
             </h1>
 
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-4">
-              Contact us for test availability, pricing guidance, and typical turnaround times.
+              We are here to help. Contact us for test availability, pricing guidance, and typical turnaround times.
               Your information is handled respectfully and confidentially.
             </p>
 
@@ -98,7 +118,7 @@ const Contact = () => {
                 size="lg"
                 className="rounded-xl font-semibold bg-background text-foreground hover:bg-background/90 w-full sm:w-auto"
               >
-                <a href={buildTelLink()}>
+                <a href={buildTelLink(LAB.phoneE164)}>
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
                 </a>
@@ -121,22 +141,41 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
             {/* LEFT */}
             <div className="space-y-6">
-              {/* Info cards (mobile: 1 col, sm+: 2 col) */}
+              {/* Info cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-card border border-border rounded-2xl p-6">
+                {/* Phone */}
+                <div className="bg-card border border-border rounded-2xl p-6 sm:col-span-2">
                   <div className="flex items-start gap-3">
                     <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
                       <Phone className="h-5 w-5 text-primary" />
                     </div>
-                    <div className="min-w-0">
-                      <div className="font-bold">Phone</div>
-                      <a className="text-muted-foreground hover:text-foreground transition-colors" href={buildTelLink()}>
-                        {LAB.phoneDisplay}
-                      </a>
+                    <div className="min-w-0 w-full">
+                      <div className="font-bold mb-2">Phone</div>
+
+                      <div className="space-y-2">
+                        {phoneList.length > 0 ? (
+                          phoneList.map((p) => (
+                            <div key={p} className="flex items-center justify-between gap-3">
+                              <a
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                                href={buildTelLink(p)}
+                              >
+                                {formatPhone(p)}
+                              </a>
+                              <Button asChild size="sm" variant="outline" className="rounded-lg">
+                                <a href={buildTelLink(p)}>Call</a>
+                              </Button>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-muted-foreground">Phone number coming soon.</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Email */}
                 <div className="bg-card border border-border rounded-2xl p-6">
                   <div className="flex items-start gap-3">
                     <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
@@ -154,26 +193,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-6 sm:col-span-2">
-                  <div className="flex items-start gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="font-bold">Location</div>
-                      <div className="text-muted-foreground">{LAB.addressFull}</div>
-                      <a
-                        className="inline-flex items-center gap-2 text-sm mt-2 text-primary hover:underline"
-                        href={buildMapsLink()}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Open directions <ArrowRight className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
+                {/* Hours */}
                 <div className="bg-card border border-border rounded-2xl p-6">
                   <div className="flex items-start gap-3">
                     <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
@@ -187,14 +207,41 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-6">
+                {/* Location */}
+                <div className="bg-card border border-border rounded-2xl p-6 sm:col-span-2">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-bold">Visit Us</div>
+                      <div className="text-muted-foreground">{LAB.addressFull}</div>
+                      <a
+                        className="inline-flex items-center gap-2 text-sm mt-2 text-primary hover:underline"
+                        href={buildMapsLink()}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open directions <ArrowRight className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div className="bg-card border border-border rounded-2xl p-6 sm:col-span-2">
                   <div className="flex items-start gap-3">
                     <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
                       <MessageCircle className="h-5 w-5 text-primary" />
                     </div>
                     <div className="min-w-0">
                       <div className="font-bold">WhatsApp</div>
-                      <a className="text-muted-foreground hover:text-foreground transition-colors" href={whatsappLink} target="_blank" rel="noreferrer">
+                      <a
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Message us on WhatsApp
                       </a>
                     </div>
@@ -266,7 +313,7 @@ const Contact = () => {
                   </pre>
                 </div>
 
-                {/* Send buttons (mobile: full width) */}
+                {/* Send buttons */}
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <Button asChild className="rounded-xl font-semibold w-full sm:w-auto">
                     <a href={whatsappLink} target="_blank" rel="noreferrer">
@@ -303,7 +350,6 @@ const Contact = () => {
                   <p className="text-muted-foreground mt-2 text-sm sm:text-base">{LAB.addressFull}</p>
                 </div>
 
-                {/* ✅ Mobile-friendly height */}
                 <div className="h-[280px] sm:h-[380px] w-full">
                   <iframe
                     title="Map"

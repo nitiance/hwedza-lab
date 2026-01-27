@@ -1,3 +1,5 @@
+// File: src/pages/Index.tsx
+
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -24,7 +26,7 @@ import scientistWorking from "@/assets/scientist-working.jpg";
 import bloodDraw from "@/assets/blood-draw.jpg";
 import microscopeCloseup from "@/assets/microscope-closeup.jpg";
 
-import { LAB, buildTelLink, buildWhatsAppLink } from "@/config/lab";
+import { LAB, LAB_HOURS_LINE, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
 const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to book a lab test. Please help me with options, pricing, and when to come in.`
@@ -183,7 +185,7 @@ const Index = () => {
               </div>
               <div className="flex items-start gap-2">
                 <Clock className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                <span className="font-medium leading-snug">{LAB.hoursLine}</span>
+                <span className="font-medium leading-snug">{LAB_HOURS_LINE}</span>
               </div>
             </div>
           </div>
@@ -221,9 +223,7 @@ const Index = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
               Our Services
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Essential Lab Testing
-            </h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Essential Lab Testing</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               We support everyday healthcare needs with reliable tests for patients, clinics, and hospitals.
             </p>
@@ -331,7 +331,11 @@ const Index = () => {
                   </Link>
                 </Button>
 
-                <Button asChild size="lg" className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto">
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto"
+                >
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     Book on WhatsApp
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -351,9 +355,7 @@ const Index = () => {
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
                 Why Choose Us
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">
-                Quality You Can Trust
-              </h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">Quality You Can Trust</h2>
 
               <div className="space-y-5 sm:space-y-6">
                 {[
@@ -403,9 +405,7 @@ const Index = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
               Simple Process
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-              How It Works
-            </h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">How It Works</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               A clear, respectful process—from arrival to results.
             </p>
