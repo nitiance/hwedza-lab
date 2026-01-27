@@ -9,7 +9,6 @@ import {
   Heart,
   ShieldCheck,
   Users,
-  Award,
   ArrowRight,
   CheckCircle2,
   Phone,
@@ -20,17 +19,18 @@ import {
   MapPin,
   GraduationCap,
   Stethoscope,
-  Shield,
   Sparkles,
+  Shield,
+  Award,
 } from "lucide-react";
 
 import heroLab from "@/assets/hero-lab.jpg";
 import labEquipment from "@/assets/lab-equipment.jpg";
 import scientistWorking from "@/assets/scientist-working.jpg";
 
-// ✅ NEW team photos (make sure these paths exist)
-import ceoPortrait from "@/assets/team/ceo-portrait.jpg";
-import executiveDirectorPortrait from "@/assets/team/lab-manager-portrait.jpg";
+// ✅ TEAM PHOTOS (MUST EXIST EXACTLY WITH THESE NAMES)
+import executiveDirectorPortrait from "@/assets/team/executive-director.jpg";
+import ceoPortrait from "@/assets/team/chief-executive-officer.jpg";
 
 import { LAB, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
@@ -38,7 +38,7 @@ const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`
 );
 
-// ✅ Updated to match the PDF values list (now 5)
+// ✅ Values from the owners' PDF
 const values = [
   {
     icon: ShieldCheck,
@@ -101,27 +101,31 @@ const howItWorks = [
   },
 ];
 
-// ✅ From the PDF: Leadership + bios
+// ✅ Leadership from the owners' PDF (names + bio points)
 const leadership = [
   {
     name: "Dr. Violet Nxedhlana",
     role: "Executive Director",
-    image: execDirectorPortrait,
+    image: executiveDirectorPortrait,
     bullets: [
       "Highly experienced clinical laboratory scientist (25+ years).",
-      "Background across cancer centers, clinical laboratories, and academia.",
+      "Career spanning cancer centers, clinical laboratories, and academia.",
+      "Associate Professor and Clinical Laboratory Science Program Director.",
       "Committed to quality, mentorship, and community health.",
     ],
+    icon: GraduationCap,
   },
   {
     name: "Prof. Shepherd Maingano",
     role: "Chief Executive Officer",
     image: ceoPortrait,
     bullets: [
-      "24+ years in clinical laboratory science.",
+      "24+ years of experience in clinical laboratory science.",
       "Professor of Clinical Chemistry.",
       "Director of Medical Laboratory Technician & Phlebotomy Programs.",
+      "Provides strategic oversight and supports training of future professionals.",
     ],
+    icon: Stethoscope,
   },
 ];
 
@@ -132,8 +136,6 @@ const About = () => {
       <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroLab} alt={`${LAB.name} facility`} className="w-full h-full object-cover" />
-
-          {/* Stronger overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/50" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-background/10" />
           <div className="absolute inset-0 bg-black/10" />
@@ -148,19 +150,16 @@ const About = () => {
               </span>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Trusted Diagnostic Services for{" "}
-                <span className="text-primary">Our Community</span>
+                Trusted Diagnostic Services for <span className="text-primary">Our Community</span>
               </h1>
 
-              {/* ✅ Updated About paragraph (PDF aligned) */}
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                 We are a community-focused diagnostic laboratory committed to delivering accurate, timely,
-                and affordable testing services. Our team supports patients and healthcare providers with reliable
-                results in hematology, clinical chemistry, and immunochemistry—improving health outcomes through
-                quality, integrity, and compassionate care.
+                and affordable testing services. Our team supports patients and healthcare providers with
+                reliable results in hematology, clinical chemistry, and immunochemistry—improving health
+                outcomes through quality, integrity, and compassionate care.
               </p>
 
-              {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="rounded-xl font-semibold shadow-bold w-full sm:w-auto">
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
@@ -185,7 +184,6 @@ const About = () => {
                 </Button>
               </div>
 
-              {/* Location + Hours */}
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 pt-1 text-muted-foreground">
                 <div className="flex items-start gap-2">
                   <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
@@ -234,7 +232,6 @@ const About = () => {
                 <Eye className="h-7 w-7 sm:h-8 sm:w-8 text-primary-foreground" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Vision</h2>
-              {/* ✅ PDF vision */}
               <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
                 To be a leading and reliable diagnostic partner, improving community health through excellence,
                 innovation, and compassionate service.
@@ -246,7 +243,6 @@ const About = () => {
                 <Target className="h-7 w-7 sm:h-8 sm:w-8 text-secondary-foreground" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Mission</h2>
-              {/* ✅ PDF mission */}
               <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
                 To deliver accurate, timely, and affordable diagnostic testing services that support clinicians,
                 empower patients, and improve health outcomes through quality, integrity, and professionalism.
@@ -256,14 +252,16 @@ const About = () => {
         </div>
       </section>
 
-      {/* LEADERSHIP (NEW) */}
+      {/* LEADERSHIP */}
       <section className="py-16 sm:py-20 lg:py-24">
         <div className="container">
           <div className="text-center mb-10 sm:mb-14">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
               Our Leadership
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Experienced, Community-Driven</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+              Experienced, Community-Driven
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               Leadership focused on quality, training, and trusted diagnostic services for better health outcomes.
             </p>
@@ -278,11 +276,7 @@ const About = () => {
 
                 <div className="p-6 sm:p-8">
                   <div className="flex items-center gap-2 text-primary mb-2">
-                    {leader.role.includes("Executive") ? (
-                      <GraduationCap className="h-5 w-5" />
-                    ) : (
-                      <Stethoscope className="h-5 w-5" />
-                    )}
+                    <leader.icon className="h-5 w-5" />
                     <span className="text-sm font-semibold">{leader.role}</span>
                   </div>
 
@@ -299,7 +293,7 @@ const About = () => {
 
                   <div className="mt-6 flex flex-col sm:flex-row gap-3">
                     <Button asChild variant="outline" className="rounded-xl font-semibold w-full sm:w-auto">
-                      <Link to="/contact">Contact Leadership</Link>
+                      <Link to="/contact">Contact</Link>
                     </Button>
                     <Button asChild className="rounded-xl font-semibold w-full sm:w-auto">
                       <a href={whatsappLink} target="_blank" rel="noreferrer">
@@ -313,7 +307,6 @@ const About = () => {
             ))}
           </div>
 
-          {/* Staff note from PDF */}
           <div className="max-w-4xl mx-auto mt-10 sm:mt-12 text-center text-muted-foreground">
             <p>
               Our skilled and caring team works together to provide accurate, timely, and reliable diagnostic services.
@@ -330,7 +323,9 @@ const About = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
               Simple Process
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">How Our Testing Works</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+              How Our Testing Works
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               A clear and respectful journey—from arrival to results.
             </p>
@@ -357,7 +352,9 @@ const About = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
               Our Values
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Principles That Guide Us</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+              Principles That Guide Us
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               These values shape how we serve patients and support healthcare providers.
             </p>
@@ -365,10 +362,7 @@ const About = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {values.map((value, index) => (
-              <div
-                key={index}
-                className="group bg-card p-7 sm:p-8 rounded-2xl border border-border text-center hover-lift"
-              >
+              <div key={index} className="group bg-card p-7 sm:p-8 rounded-2xl border border-border text-center hover-lift">
                 <div
                   className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-5 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg`}
                 >
@@ -382,8 +376,41 @@ const About = () => {
         </div>
       </section>
 
-      {/* FACILITY */}
+      {/* PLEDGE */}
       <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+        <div className="container">
+          <div className="max-w-4xl mx-auto bg-card border border-border rounded-3xl p-7 sm:p-10 shadow-soft">
+            <div className="flex items-center gap-3 mb-4 text-primary">
+              <Award className="h-6 w-6" />
+              <h2 className="text-2xl sm:text-3xl font-bold">Our Pledge to the Community</h2>
+            </div>
+            <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
+              We are committed to serving our community with accurate, timely, and affordable diagnostic services.
+              We pledge to uphold the highest standards of quality, integrity, and compassion—ensuring that every
+              patient receives care they can trust.
+            </p>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Button asChild className="rounded-xl font-semibold w-full sm:w-auto">
+                <a href={whatsappLink} target="_blank" rel="noreferrer">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  WhatsApp Us
+                </a>
+              </Button>
+
+              <Button asChild variant="outline" className="rounded-xl font-semibold w-full sm:w-auto">
+                <a href={buildTelLink()}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call {LAB.phoneDisplay}
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FACILITY */}
+      <section className="py-16 sm:py-20 lg:py-24">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="order-2 lg:order-1 grid grid-cols-2 gap-4">
@@ -434,59 +461,6 @@ const About = () => {
                 </Link>
               </Button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-primary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-50 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')]" />
-        <div className="container relative text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mb-4 sm:mb-6">
-            Questions About Our Services?
-          </h2>
-          <p className="text-primary-foreground/80 mb-8 sm:mb-10 max-w-2xl mx-auto text-base sm:text-lg">
-            We’re here to help. Contact us for test availability, pricing guidance, and turnaround expectations.
-          </p>
-
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-            <Button
-              size="lg"
-              asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 bg-background text-foreground hover:bg-background/90 w-full sm:w-auto"
-            >
-              <a href={whatsappLink} target="_blank" rel="noreferrer">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                WhatsApp Us
-              </a>
-            </Button>
-
-            <Button
-              size="lg"
-              asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 bg-transparent border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
-            >
-              <a href={buildTelLink()}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call {LAB.phoneDisplay}
-              </a>
-            </Button>
-
-            <Button
-              size="lg"
-              variant="secondary"
-              asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto"
-            >
-              <Link to="/contact">
-                Contact Page
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mt-6 sm:mt-8 text-primary-foreground/70 text-sm">
-            <p>Location: {LAB.addressFull}</p>
           </div>
         </div>
       </section>
