@@ -30,7 +30,7 @@ import scientistWorking from "@/assets/scientist-working.jpg";
 
 // ✅ NEW team photos (make sure these paths exist)
 import ceoPortrait from "@/assets/team/ceo-portrait.jpg";
-import execDirectorPortrait from "@/assets/team/executive-director-portrait.jpg";
+import executiveDirectorPortrait from "@/assets/team/lab-manager-portrait.jpg";
 
 import { LAB, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
