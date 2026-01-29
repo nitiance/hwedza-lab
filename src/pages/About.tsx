@@ -295,11 +295,13 @@ const About = () => {
             {leadership.map((leader) => (
               <div key={leader.name} className="bg-card border border-border rounded-3xl p-6 sm:p-7 shadow-soft">
                 <div className="flex items-start gap-4">
-                  <img
-                    src={leader.image}
-                    alt={`${leader.name} portrait`}
-                    className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl object-cover border border-border shadow-sm shrink-0"
-                  />
+                  <div className="h-24 w-20 sm:h-28 sm:w-24 rounded-2xl border border-border shadow-sm bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center">
+                    <img
+                      src={leader.image}
+                      alt={`${leader.name} portrait`}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
 
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 text-primary">
