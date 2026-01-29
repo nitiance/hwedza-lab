@@ -1,4 +1,5 @@
 // File: src/pages/Contact.tsx
+// BinanceXI © — WCML site build
 
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ import {
   buildWhatsAppLink,
 } from "@/config/lab";
 
+// Builds a clean booking/enquiry message (WhatsApp + Email use the same content)
 function buildBookingMessage(params: {
   name?: string;
   test?: string;
@@ -45,12 +47,25 @@ function buildBookingMessage(params: {
   return lines.join("\n");
 }
 
+// Light formatting for Zimbabwe numbers (best-effort, safe)
+function formatPhone(p: string) {
+  if (p.startsWith("+263")) {
+    const rest = p.replace("+263", "").trim();
+    const g1 = rest.slice(0, 3);
+    const g2 = rest.slice(3, 6);
+    const g3 = rest.slice(6, 9);
+    return `+263 ${g1}${g2 ? " " + g2 : ""}${g3 ? " " + g3 : ""}`.trim();
+  }
+  return p;
+}
+
 const Contact = () => {
   const [name, setName] = useState("");
   const [test, setTest] = useState("");
   const [preferredDay, setPreferredDay] = useState("");
   const [notes, setNotes] = useState("");
 
+  // Single source of truth: the message preview is exactly what we send
   const message = useMemo(
     () => buildBookingMessage({ name, test, preferredDay, notes }),
     [name, test, preferredDay, notes]
@@ -63,29 +78,17 @@ const Contact = () => {
     return buildMailtoLink(subject, message);
   }, [message]);
 
-  // Phone list (supports your new config fields, but won’t crash if missing)
-  const phoneList: string[] = useMemo(() => {
-    const primary = LAB.phoneE164 || "";
-    const extras = (LAB as any).extraPhones || [];
-    return [primary, ...extras].filter(Boolean);
+  // Client correction: use the exact numbers on the lab door
+  const phoneList = useMemo(() => {
+    const primary = LAB.phoneTel || "";
+    const extras = Array.isArray(LAB.phones) ? LAB.phones : [];
+    // Ensure primary is included once, then add the rest
+    return [primary, ...extras].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
   }, []);
-
-  const formatPhone = (p: string) => {
-    // light formatting only; keep safe for Zim numbers
-    if (p.startsWith("+263")) {
-      const rest = p.replace("+263", "").trim();
-      // group like: +263 775 243 241 (best-effort)
-      const g1 = rest.slice(0, 3);
-      const g2 = rest.slice(3, 6);
-      const g3 = rest.slice(6, 9);
-      return `+263 ${g1}${g2 ? " " + g2 : ""}${g3 ? " " + g3 : ""}`.trim();
-    }
-    return p;
-  };
 
   return (
     <Layout>
-      {/* HERO */}
+      {/* Contact hero */}
       <section className="relative pt-24 sm:pt-32 pb-10 sm:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="container relative">
@@ -99,11 +102,11 @@ const Contact = () => {
             </h1>
 
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-4">
-              We are here to help. Contact us for test availability, pricing guidance, and typical turnaround times.
-              Your information is handled respectfully and confidentially.
+              Contact us for test availability, pricing guidance, and typical turnaround times. Your information is
+              handled respectfully and confidentially.
             </p>
 
-            {/* Primary actions (mobile-first: full width) */}
+            {/* Quick actions */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg" className="rounded-xl font-semibold w-full sm:w-auto">
                 <a href={whatsappLink} target="_blank" rel="noreferrer">
@@ -118,7 +121,7 @@ const Contact = () => {
                 size="lg"
                 className="rounded-xl font-semibold bg-background text-foreground hover:bg-background/90 w-full sm:w-auto"
               >
-                <a href={buildTelLink(LAB.phoneE164)}>
+                <a href={buildTelLink(LAB.phoneTel)}>
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
                 </a>
@@ -135,13 +138,13 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* CONTENT */}
+      {/* Main content */}
       <section className="pb-20 sm:pb-24">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
-            {/* LEFT */}
+            {/* Left column */}
             <div className="space-y-6">
-              {/* Info cards */}
+              {/* Contact info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Phone */}
                 <div className="bg-card border border-border rounded-2xl p-6 sm:col-span-2">
@@ -149,6 +152,7 @@ const Contact = () => {
                     <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
                       <Phone className="h-5 w-5 text-primary" />
                     </div>
+
                     <div className="min-w-0 w-full">
                       <div className="font-bold mb-2">Phone</div>
 
@@ -181,6 +185,7 @@ const Contact = () => {
                     <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
                       <Mail className="h-5 w-5 text-secondary" />
                     </div>
+
                     <div className="min-w-0">
                       <div className="font-bold">Email</div>
                       <a
@@ -199,6 +204,7 @@ const Contact = () => {
                     <div className="w-11 h-11 rounded-xl bg-gradient-secondary/10 flex items-center justify-center">
                       <Clock className="h-5 w-5 text-secondary" />
                     </div>
+
                     <div className="min-w-0">
                       <div className="font-bold">Opening Hours</div>
                       <div className="text-muted-foreground">{LAB.hours.weekdays}</div>
@@ -213,6 +219,7 @@ const Contact = () => {
                     <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
                       <MapPin className="h-5 w-5 text-primary" />
                     </div>
+
                     <div className="min-w-0">
                       <div className="font-bold">Visit Us</div>
                       <div className="text-muted-foreground">{LAB.addressFull}</div>
@@ -234,6 +241,7 @@ const Contact = () => {
                     <div className="w-11 h-11 rounded-xl bg-gradient-primary/10 flex items-center justify-center">
                       <MessageCircle className="h-5 w-5 text-primary" />
                     </div>
+
                     <div className="min-w-0">
                       <div className="font-bold">WhatsApp</div>
                       <a
@@ -249,12 +257,13 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Booking form */}
+              {/* Booking message generator */}
               <div className="bg-card border border-border rounded-2xl p-6 sm:p-7">
                 <div className="flex items-center gap-2 mb-2">
                   <ShieldCheck className="h-5 w-5 text-primary" />
                   <h2 className="text-lg sm:text-xl font-bold">Quick Booking Message</h2>
                 </div>
+
                 <p className="text-muted-foreground mb-6 text-sm sm:text-base">
                   Fill in the details below. We’ll generate a ready-to-send message for WhatsApp or email.
                 </p>
@@ -308,6 +317,7 @@ const Contact = () => {
                     <div className="font-semibold">Preview</div>
                     <div className="text-xs text-muted-foreground">(This is what will be sent)</div>
                   </div>
+
                   <pre className="whitespace-pre-wrap break-words text-sm text-muted-foreground leading-relaxed font-sans">
                     {message}
                   </pre>
@@ -330,19 +340,20 @@ const Contact = () => {
                   </Button>
                 </div>
 
+                {/* Small disclaimer */}
                 <div className="mt-6 text-sm text-muted-foreground">
                   <div className="flex gap-2">
                     <CheckCircle2 className="h-4 w-4 text-secondary mt-0.5" />
                     <p>
-                      This website provides general information only. For diagnosis and treatment,
-                      consult a qualified healthcare provider.
+                      This website provides general information only. For diagnosis and treatment, consult a qualified
+                      healthcare provider.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT */}
+            {/* Right column */}
             <div className="space-y-6">
               <div className="bg-card border border-border rounded-2xl overflow-hidden">
                 <div className="p-5 sm:p-6 border-b border-border">
@@ -379,7 +390,7 @@ const Contact = () => {
                 </ul>
               </div>
 
-              {/* Extra mobile CTA block */}
+              {/* Mobile-first CTA */}
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="font-bold mb-2">Fastest way to book</div>
                 <p className="text-muted-foreground text-sm mb-4">
@@ -400,4 +411,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Contact; 

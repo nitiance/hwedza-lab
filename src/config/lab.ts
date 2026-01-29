@@ -1,58 +1,74 @@
-// File: src/config/lab.ts
+/**
+ * BinanceXI ©
+ * Central configuration for Wedza Medical Centre Laboratory
+ * Single source of truth for identity, contact, and location data
+ */
 
 export const LAB = {
-  name: "Wedza Medical Laboratory",
+  // Official registered name
+  name: "Wedza Medical Centre Laboratory",
 
-  // Phone (owners provided multiple numbers)
+  // Primary contact numbers (as displayed publicly)
   phoneDisplay: "+263 775 243 241",
   phoneTel: "+263775243241",
-  phones: ["+263775243241", "+263773862907", "+263716308106"],
+  phones: [
+    "+263775243241",
+    "+263773862907",
+    "+263716308106",
+  ],
 
-  // WhatsApp (pick primary; you can change if they want a different WhatsApp line)
+  // Primary WhatsApp line
   whatsappNumber: "+263775243241",
 
-  // Email
+  // Official email
   email: "wmcl2014@gmail.com",
 
-  // Address
+  // Physical location
   addressShort: "Wedza Centre",
   addressFull: "Wedza Centre, Mashonaland East, Zimbabwe",
 
-  // Opening hours (owners’ hours)
+  // Operating hours
   hours: {
-    weekdays: "Monday - Friday: 8:00 AM - 5:00 PM",
-    saturday: "Saturday: 10:00 AM - 2:00 PM",
+    weekdays: "Monday – Friday: 8:00 AM – 5:00 PM",
+    saturday: "Saturday: 10:00 AM – 2:00 PM",
   },
 
-  // Coordinates (your real coords)
+  // GPS coordinates (Google Maps)
   coords: {
     lat: -18.61917,
     lng: 31.57027,
   },
 } as const;
 
-/**
- * Convenience strings used by pages
- */
-export const LAB_HOURS_LINE = `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;
+// Compact hours line used across UI
+export const LAB_HOURS_LINE =
+  `${LAB.hours.weekdays} • ${LAB.hours.saturday}`;
 
-/**
- * If any page uses LAB.hoursLine, this keeps it working
- * (without mutating LAB, we export a helper and recommend using LAB_HOURS_LINE)
- */
+// Backward compatibility helper (do not remove)
 export const LAB_HELPERS = {
   hoursLine: LAB_HOURS_LINE,
 } as const;
 
-export const buildTelLink = (tel: string = LAB.phoneTel) => `tel:${tel}`;
+// -------------------------------
+// Link builders
+// -------------------------------
 
-export const buildWhatsAppLink = (message: string) => {
+export const buildTelLink = (
+  tel: string = LAB.phoneTel
+) => `tel:${tel}`;
+
+export const buildWhatsAppLink = (
+  message: string
+) => {
   const msg = encodeURIComponent(message);
   const num = LAB.whatsappNumber.replace("+", "");
   return `https://wa.me/${num}?text=${msg}`;
 };
 
-export const buildMailtoLink = (subject: string, body: string) => {
+export const buildMailtoLink = (
+  subject: string,
+  body: string
+) => {
   const s = encodeURIComponent(subject);
   const b = encodeURIComponent(body);
   return `mailto:${LAB.email}?subject=${s}&body=${b}`;

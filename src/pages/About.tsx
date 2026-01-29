@@ -1,4 +1,5 @@
 // File: src/pages/About.tsx
+// BinanceXI watermark — internal build signature (do not remove)
 
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -6,11 +7,9 @@ import { Link } from "react-router-dom";
 import {
   Target,
   Eye,
-  Heart,
   ShieldCheck,
   Users,
   ArrowRight,
-  CheckCircle2,
   Phone,
   MessageCircle,
   FileText,
@@ -28,7 +27,7 @@ import heroLab from "@/assets/hero-lab.jpg";
 import labEquipment from "@/assets/lab-equipment.jpg";
 import scientistWorking from "@/assets/scientist-working.jpg";
 
-// ✅ TEAM PHOTOS (MUST EXIST EXACTLY WITH THESE NAMES)
+// Team photos (must exist with these names)
 import executiveDirectorPortrait from "@/assets/team/executive-director.jpg";
 import ceoPortrait from "@/assets/team/chief-executive-officer.jpg";
 
@@ -38,35 +37,41 @@ const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`
 );
 
+// Values (expanded wording per client corrections)
 const values = [
   {
     icon: ShieldCheck,
     title: "Quality & Accuracy",
-    description: "Reliable testing and trustworthy results.",
+    description:
+      "We are committed to delivering precise, reliable laboratory results through uncompromising quality standards and meticulous attention to detail.",
     color: "from-primary to-purple-600",
   },
   {
-    icon: Heart,
+    icon: Users,
     title: "Community Care",
-    description: "Compassionate service for every patient.",
+    description:
+      "We care for our community by delivering trusted laboratory services, supporting local healthcare, and promoting healthier lives through partnership and service.",
     color: "from-rose-500 to-red-600",
   },
   {
-    icon: Users,
+    icon: BadgeCheck,
     title: "Accessibility",
-    description: "Affordable diagnostic services for all.",
+    description:
+      "We believe quality laboratory testing should be easy to access. Our services are designed to be convenient, responsive, and inclusive for every patient and provider we serve.",
     color: "from-secondary to-teal-600",
   },
   {
     icon: Shield,
     title: "Integrity",
-    description: "Confidential, ethical, and honest practice.",
+    description:
+      "Integrity guides every test we perform. We protect patient confidentiality, follow strict quality controls, and report results honestly and accurately—because lives depend on reliable laboratory data.",
     color: "from-amber-500 to-orange-600",
   },
   {
     icon: Sparkles,
     title: "Professionalism",
-    description: "Skilled staff and continuous improvement.",
+    description:
+      "We demonstrate professionalism through expertise, integrity, and respectful service in every interaction and every result we deliver.",
     color: "from-sky-500 to-indigo-600",
   },
 ];
@@ -100,34 +105,28 @@ const howItWorks = [
   },
 ];
 
+// Leadership (paragraph bios — per document)
 const leadership = [
   {
     name: "Dr. Violet Nxedhlana",
     role: "Executive Director",
     image: executiveDirectorPortrait,
-    bullets: [
-      "Clinical laboratory scientist (25+ years).",
-      "Experience across cancer centers, clinical labs & academia.",
-      "Associate Professor & Program Director (Clinical Laboratory Science).",
-    ],
     icon: GraduationCap,
+    bio: "Our laboratory is led by Dr. Violet Nxedhlana, a highly experienced clinical laboratory scientist with over 25 years of expertise in clinical laboratory sciences. Her career spans extensive work in cancer centers and clinical laboratories, as well as academic leadership as an Associate Professor and Clinical Laboratory Science Program Director. Dr. Nxedhlana brings a strong commitment to quality, mentorship, and community health, ensuring the laboratory delivers trusted diagnostic services guided by excellence and integrity.",
   },
   {
     name: "Prof. Shepherd Maingano",
     role: "Chief Executive Officer",
     image: ceoPortrait,
-    bullets: [
-      "Clinical laboratory science (24+ years).",
-      "Professor of Clinical Chemistry.",
-      "Director: Medical Lab Technician & Phlebotomy Programs.",
-    ],
     icon: Stethoscope,
+    bio: "Prof. Shepherd Maingano has over 24 years of experience in clinical laboratory science, transitioning from hands-on laboratory testing to leadership and supervision. He is a Professor of Clinical Chemistry and Director of the Medical Laboratory Technician and Phlebotomy Programs, providing strategic oversight and fostering the next generation of laboratory professionals.",
   },
 ];
 
 const About = () => {
   return (
     <Layout>
+      {/* BinanceXI watermark — About page */}
       {/* HERO */}
       <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-14 sm:pb-18 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0">
@@ -139,20 +138,22 @@ const About = () => {
 
         <div className="container relative">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-            {/* LEFT */}
+            {/* Left content */}
             <div className="space-y-6">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
                 About Us
               </span>
 
+              {/* Fix: “Our Community” (not “Wedza”) */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-                Trusted Diagnostics for <span className="text-primary">Wedza</span>
+                Trusted Diagnostics for <span className="text-primary">Our Community</span>
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                We are a community-focused diagnostic laboratory committed to accurate, timely, and affordable testing.
-                We support patients and healthcare providers with reliable results—delivered with integrity,
-                confidentiality, and compassionate care.
+                We are a community-focused diagnostic laboratory committed to delivering accurate, timely, and affordable
+                testing services. Our team supports patients and healthcare providers with reliable results in
+                hematology, clinical chemistry, and immunochemistry—improving health outcomes through quality, integrity,
+                and compassionate care.
               </p>
 
               {/* CTAs */}
@@ -180,7 +181,7 @@ const About = () => {
                 </Button>
               </div>
 
-              {/* Meta */}
+              {/* Meta line */}
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 pt-1 text-muted-foreground">
                 <div className="flex items-start gap-2">
                   <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
@@ -193,7 +194,7 @@ const About = () => {
               </div>
             </div>
 
-            {/* RIGHT CARD */}
+            {/* Right card */}
             <div className="relative">
               <div className="bg-card/85 backdrop-blur-sm border border-border rounded-3xl p-6 sm:p-8 shadow-2xl">
                 <h2 className="text-xl sm:text-2xl font-bold mb-3">Who We Serve</h2>
@@ -248,8 +249,37 @@ const About = () => {
         </div>
       </section>
 
-      {/* LEADERSHIP (FIXED: SMALLER, CLEANER, NOT GIANT PHOTOS) */}
+      {/* Fix: VALUES must come immediately after Vision/Mission */}
       <section className="py-16 sm:py-20 lg:py-24">
+        <div className="container">
+          <div className="text-center mb-10 sm:mb-14">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+              Our Values
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3">Principles That Guide Us</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
+              These values shape how we serve patients and support healthcare providers.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6">
+            {values.map((value, index) => (
+              <div key={index} className="group bg-card p-6 sm:p-7 rounded-2xl border border-border text-center hover-lift">
+                <div
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg`}
+                >
+                  <value.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{value.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* LEADERSHIP (paragraph bios) */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
         <div className="container">
           <div className="text-center mb-10 sm:mb-14">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
@@ -261,38 +291,27 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-5 sm:gap-6 max-w-6xl mx-auto">
             {leadership.map((leader) => (
-              <div
-                key={leader.name}
-                className="bg-card border border-border rounded-3xl p-6 sm:p-7 shadow-soft"
-              >
+              <div key={leader.name} className="bg-card border border-border rounded-3xl p-6 sm:p-7 shadow-soft">
                 <div className="flex items-start gap-4">
-                  {/* Avatar (small + professional) */}
-                  <div className="shrink-0">
-                    <img
-                      src={leader.image}
-                      alt={`${leader.name} portrait`}
-                      className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl object-cover border border-border shadow-sm"
-                    />
-                  </div>
+                  <img
+                    src={leader.image}
+                    alt={`${leader.name} portrait`}
+                    className="h-20 w-20 sm:h-24 sm:w-24 rounded-2xl object-cover border border-border shadow-sm shrink-0"
+                  />
 
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2 text-primary">
                       <leader.icon className="h-5 w-5" />
                       <span className="text-sm font-semibold">{leader.role}</span>
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold mt-1 truncate">{leader.name}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mt-1">{leader.name}</h3>
 
-                    <ul className="mt-3 space-y-2">
-                      {leader.bullets.map((b) => (
-                        <li key={b} className="flex gap-2 text-muted-foreground text-sm sm:text-[15px]">
-                          <CheckCircle2 className="h-4 w-4 text-secondary flex-shrink-0 mt-0.5" />
-                          <span className="leading-relaxed">{b}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="mt-3 text-muted-foreground text-sm sm:text-[15px] leading-relaxed">
+                      {leader.bio}
+                    </p>
 
                     <div className="mt-5 flex flex-col sm:flex-row gap-3">
                       <Button asChild variant="outline" className="rounded-xl font-semibold w-full sm:w-auto">
@@ -311,15 +330,24 @@ const About = () => {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto mt-10 text-center text-muted-foreground text-sm sm:text-base">
-            Our skilled and caring team works together to provide accurate, timely, and reliable diagnostic services—
-            with professionalism, compassion, and integrity.
+          {/* Exact “Our Staff” section from corrections */}
+          <div className="max-w-5xl mx-auto mt-10 sm:mt-12 bg-card border border-border rounded-3xl p-7 sm:p-10 shadow-soft">
+            <div className="flex items-center gap-3 mb-3 text-primary">
+              <Users className="h-6 w-6" />
+              <h3 className="text-2xl sm:text-3xl font-bold">Our Staff</h3>
+            </div>
+            <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
+              Our skilled and caring team works together to provide accurate, timely, and reliable diagnostic services.
+              Every member, from laboratory scientists to drivers, is dedicated to supporting patients and the community
+              with professionalism, compassion, and integrity. Together, we work hand-in-hand to support better health
+              outcomes for all.
+            </p>
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-16 sm:py-20 bg-muted/30">
+      <section className="py-16 sm:py-20">
         <div className="container">
           <div className="text-center mb-10 sm:mb-14">
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
@@ -345,51 +373,19 @@ const About = () => {
         </div>
       </section>
 
-      {/* VALUES */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="container">
-          <div className="text-center mb-10 sm:mb-14">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              Our Values
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-3">Principles That Guide Us</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
-              These values shape how we serve patients and support healthcare providers.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6">
-            {values.map((value, index) => (
-              <div
-                key={index}
-                className="group bg-card p-6 sm:p-7 rounded-2xl border border-border text-center hover-lift"
-              >
-                <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg`}
-                >
-                  <value.icon className="h-7 w-7 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">{value.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* PLEDGE */}
       <section className="py-16 sm:py-20 bg-muted/30">
         <div className="container">
           <div className="max-w-4xl mx-auto bg-card border border-border rounded-3xl p-7 sm:p-10 shadow-soft">
             <div className="flex items-center gap-3 mb-4 text-primary">
               <Award className="h-6 w-6" />
-              <h2 className="text-2xl sm:text-3xl font-bold">Our Pledge</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Our Pledge to the Community</h2>
             </div>
 
             <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
               We are committed to serving our community with accurate, timely, and affordable diagnostic services.
-              We uphold the highest standards of quality, integrity, and compassion—so every patient receives care
-              they can trust.
+              We pledge to uphold the highest standards of quality, integrity, and compassion—ensuring that every
+              patient receives care they can trust.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -450,7 +446,7 @@ const About = () => {
                   "Referral support for specialized testing",
                 ].map((item) => (
                   <div key={item} className="flex gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-secondary flex-shrink-0" />
+                    <ShieldCheck className="h-6 w-6 text-secondary flex-shrink-0" />
                     <p className="text-muted-foreground">{item}</p>
                   </div>
                 ))}

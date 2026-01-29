@@ -1,21 +1,18 @@
+// File: src/components/layout/Footer.tsx
+// BinanceXI — build watermark (do not remove)
+
 import { Link } from "react-router-dom";
-import {
-  FlaskConical,
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  ArrowRight,
-  MessageCircle,
-} from "lucide-react";
+import { FlaskConical, Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LAB, LAB_HOURS_LINE, buildMailtoLink, buildMapsLink, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
 const Footer = () => {
+  // Default WhatsApp enquiry message (simple + consistent)
   const whatsappLink = buildWhatsAppLink(
     `Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`
   );
 
+  // Default email enquiry message
   const mailtoLink = buildMailtoLink(
     `Enquiry — ${LAB.name}`,
     `Hello ${LAB.name},\n\nI would like to enquire about your services.\n\nThank you.`
@@ -23,10 +20,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-foreground text-background">
-      {/* Main Footer */}
+      {/* Main footer */}
       <div className="container py-14 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
+          {/* Brand / summary */}
           <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
@@ -34,22 +31,19 @@ const Footer = () => {
               </div>
 
               <div className="flex flex-col">
-                <span className="font-bold text-xl leading-tight text-background">
-                  Wedza
-                </span>
+                <span className="font-bold text-xl leading-tight text-background">{LAB.name}</span>
                 <span className="text-xs text-background/60 leading-tight font-medium">
-                  Medical Laboratory
+                  Diagnostic Laboratory
                 </span>
               </div>
             </Link>
 
             <p className="text-background/70 leading-relaxed max-w-md">
-              A community-based diagnostic laboratory committed to supporting patients, clinics,
-              and hospitals with accurate laboratory results. Serving Wedza District with care,
-              professionalism, and integrity.
+              A community-based diagnostic laboratory committed to supporting patients, clinics, and hospitals with
+              accurate laboratory results—served with professionalism, integrity, and care.
             </p>
 
-            {/* CTAs */}
+            {/* Quick actions */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild variant="secondary" className="rounded-xl font-semibold group">
                 <Link to="/contact">
@@ -58,10 +52,7 @@ const Footer = () => {
                 </Link>
               </Button>
 
-              <Button
-                asChild
-                className="rounded-xl font-semibold bg-background text-foreground hover:bg-background/90"
-              >
+              <Button asChild className="rounded-xl font-semibold bg-background text-foreground hover:bg-background/90">
                 <a href={whatsappLink} target="_blank" rel="noreferrer">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   WhatsApp
@@ -70,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Links */}
           <div>
             <h4 className="font-bold text-lg mb-6 text-background">Quick Links</h4>
             <ul className="space-y-4">
@@ -149,14 +140,16 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom bar */}
       <div className="border-t border-background/10">
         <div className="container py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/50">
-            <p>© {new Date().getFullYear()} {LAB.name}. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} {LAB.name}. All rights reserved.
+            </p>
             <p className="text-xs text-center md:text-right max-w-xl">
-              This website provides general information only. For diagnosis and treatment,
-              consult a qualified healthcare provider.
+              This website provides general information only. For diagnosis and treatment, consult a qualified
+              healthcare provider.
             </p>
           </div>
         </div>

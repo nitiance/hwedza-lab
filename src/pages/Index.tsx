@@ -1,4 +1,5 @@
 // File: src/pages/Index.tsx
+// BinanceXI — build watermark (do not remove)
 
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -26,12 +27,13 @@ import scientistWorking from "@/assets/scientist-working.jpg";
 import bloodDraw from "@/assets/blood-draw.jpg";
 import microscopeCloseup from "@/assets/microscope-closeup.jpg";
 
-import { LAB, LAB_HOURS_LINE, LAB_HELPERS, buildTelLink, buildWhatsAppLink } from "@/config/lab";
+import { LAB, LAB_HOURS_LINE, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
 const whatsappLink = buildWhatsAppLink(
   `Hello ${LAB.name}. I’d like to book a lab test. Please help me with options, pricing, and when to come in.`
 );
 
+// Client text direction: keep services broad + simple
 const services = [
   {
     icon: Droplets,
@@ -110,14 +112,15 @@ const howItWorks = [
 ];
 
 const Index = () => {
+  // Put your logo here: place a file at /public/logo.png (Vercel-safe, no import headaches)
+  const logoSrc = "/logo.png";
+
   return (
     <Layout>
       {/* HERO */}
       <section className="relative min-h-[78vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroLab} alt={LAB.name} className="w-full h-full object-cover" />
-
-          {/* STRONGER overlay = readable text/buttons */}
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/45" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/10" />
           <div className="absolute inset-0 bg-black/10" />
@@ -125,25 +128,38 @@ const Index = () => {
 
         <div className="container relative z-10 pt-24 sm:pt-28 pb-10 sm:pb-16">
           <div className="max-w-3xl space-y-6 sm:space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/20 backdrop-blur-sm border border-border/40 text-foreground">
-              <Sparkles className="h-4 w-4 text-secondary" />
-              <span className="text-sm font-medium">Reliable • Affordable • Timely</span>
+            {/* Logo + trust tag */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-background/20 backdrop-blur-sm border border-border/40 text-foreground">
+                <Sparkles className="h-4 w-4 text-secondary" />
+                <span className="text-sm font-medium">Reliable • Affordable • Timely</span>
+              </div>
+
+              {/* Company Logo (client request). If logo missing, it just won’t load (no build fail). */}
+              <div className="hidden sm:flex items-center justify-center h-11 w-11 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
+                <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-foreground">
+            {/* Client request: Lab name must be bigger, same font style, and above the tagline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
+              {LAB.name}
+            </h1>
+
+            {/* Client request: tagline smaller than lab name */}
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-foreground/95">
               Your Health,{" "}
               <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                 Our Priority
               </span>
-            </h1>
+            </h2>
 
+            {/* Client requested replacement paragraph */}
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              At {LAB.name}, we serve our community with accurate and accessible laboratory testing.
-              Every sample represents a person, a family, and a life—so we handle every test with care,
-              respect, and confidentiality.
+              We provide accurate, timely, and affordable testing to support better health outcomes. Every sample
+              represents a person, a family, and a life—so we handle every test with care, respect, and confidentiality.
             </p>
 
-            {/* Primary actions (stack on mobile) */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-1">
               <Button
                 size="lg"
@@ -177,7 +193,6 @@ const Index = () => {
               </Button>
             </div>
 
-            {/* Quick contact (wrap safe on mobile) */}
             <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 pt-1 text-muted-foreground">
               <div className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
@@ -191,7 +206,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Scroll indicator (hide on very small screens) */}
         <div className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-8 h-12 rounded-full border-2 border-border/60 flex items-start justify-center p-2">
             <div className="w-1.5 h-3 rounded-full bg-muted-foreground/60 animate-pulse" />
@@ -292,15 +306,18 @@ const Index = () => {
             <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
               <div>
                 <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
-                  Who We Are
+                  About Us
                 </span>
+
+                {/* Client request: don’t restrict to Wedza */}
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-                  Serving Wedza with <span className="text-primary">Integrity</span>
+                  Trusted Diagnostics for <span className="text-primary">Our Community</span>
                 </h2>
+
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  {LAB.name} is a community-based diagnostic laboratory committed to supporting patients,
-                  clinics, and hospitals with accurate laboratory results. We exist to improve health outcomes
-                  in Wedza by making quality diagnostics accessible and trustworthy.
+                  {LAB.name} is a community-based diagnostic laboratory committed to supporting patients, clinics, and
+                  hospitals with accurate laboratory results. We exist to improve health outcomes by making quality
+                  diagnostics accessible and trustworthy.
                 </p>
               </div>
 
@@ -331,11 +348,7 @@ const Index = () => {
                   </Link>
                 </Button>
 
-                <Button
-                  asChild
-                  size="lg"
-                  className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto"
-                >
+                <Button asChild size="lg" className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto">
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     Book on WhatsApp
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -460,12 +473,7 @@ const Index = () => {
               </a>
             </Button>
 
-            <Button
-              size="lg"
-              variant="secondary"
-              asChild
-              className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto"
-            >
+            <Button size="lg" variant="secondary" asChild className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto">
               <Link to="/contact">
                 Contact Page
                 <ArrowRight className="ml-2 h-5 w-5" />
