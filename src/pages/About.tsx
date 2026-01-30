@@ -124,6 +124,9 @@ const leadership = [
 ];
 
 const About = () => {
+  // Client logo: keep it in /public/logo.png (no import headaches)
+  const logoSrc = "/logo.png";
+
   return (
     <Layout>
       {/* BinanceXI watermark — About page */}
@@ -140,13 +143,20 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             {/* Left content */}
             <div className="space-y-6">
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                About Us
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                  About Us
+                </span>
 
-              {/* Fix: “Our Community” (not “Wedza”) */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-                Trusted Diagnostics for <span className="text-primary">Our Community</span>
+                {/* Client request: replace flask with actual logo (this screen) */}
+                <div className="hidden sm:flex items-center justify-center h-10 w-10 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
+                  <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
+                </div>
+              </div>
+
+              {/* Client request: match font size of “Your Health, Our Priority” */}
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
+                Trusted Diagnosis for <span className="text-primary">Our Community</span>
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
@@ -264,7 +274,10 @@ const About = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6">
             {values.map((value, index) => (
-              <div key={index} className="group bg-card p-6 sm:p-7 rounded-2xl border border-border text-center hover-lift">
+              <div
+                key={index}
+                className="group bg-card p-6 sm:p-7 rounded-2xl border border-border text-center hover-lift"
+              >
                 <div
                   className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg`}
                 >
@@ -295,6 +308,7 @@ const About = () => {
             {leadership.map((leader) => (
               <div key={leader.name} className="bg-card border border-border rounded-3xl p-6 sm:p-7 shadow-soft">
                 <div className="flex items-start gap-4">
+                  {/* Client request: show full photo ratio (no cropping) */}
                   <div className="h-24 w-20 sm:h-28 sm:w-24 rounded-2xl border border-border shadow-sm bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center">
                     <img
                       src={leader.image}

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import {
-  FlaskConical,
   Microscope,
   TestTube,
   Droplets,
@@ -43,7 +42,7 @@ const services = [
     gradient: "from-red-500 to-rose-600",
   },
   {
-    icon: FlaskConical,
+    icon: "logo",
     title: "Chemistry Tests",
     bullets: ["Kidney function tests", "Liver function tests", "Metabolic / chemistry panels"],
     note: "Reliable insights for your clinician’s decisions.",
@@ -237,7 +236,9 @@ const Index = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
               Our Services
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Essential Lab Testing</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-3 sm:mb-4">
+              Essential Lab Testing
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               We support everyday healthcare needs with reliable tests for patients, clinics, and hospitals.
             </p>
@@ -247,9 +248,13 @@ const Index = () => {
             {services.map((service, index) => (
               <div key={index} className="group bg-card rounded-2xl border border-border p-7 sm:p-8 hover-lift">
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg overflow-hidden`}
                 >
-                  <service.icon className="h-7 w-7 text-white" />
+                  {service.icon === "logo" ? (
+                    <img src={logoSrc} alt={`${LAB.name} logo`} className="h-9 w-9 object-contain" />
+                  ) : (
+                    <service.icon className="h-7 w-7 text-white" />
+                  )}
                 </div>
 
                 <h3 className="font-bold text-xl mb-3">{service.title}</h3>
@@ -310,7 +315,7 @@ const Index = () => {
                 </span>
 
                 {/* Client request: don’t restrict to Wedza */}
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-4 sm:mb-6">
                   Trusted Diagnostics for <span className="text-primary">Our Community</span>
                 </h2>
 
@@ -324,7 +329,7 @@ const Index = () => {
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
                   { icon: ShieldCheck, text: "Respect and confidentiality for every patient" },
-                  { icon: FlaskConical, text: "Accurate and dependable test results" },
+                  { icon: "logo", text: "Accurate and dependable test results" },
                   { icon: Clock, text: "Clear guidance on turnaround times" },
                   { icon: Heart, text: "Friendly, professional, compassionate staff" },
                 ].map((p, idx) => (
@@ -332,8 +337,12 @@ const Index = () => {
                     key={idx}
                     className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-gradient-primary/10 flex items-center justify-center flex-shrink-0">
-                      <p.icon className="h-5 w-5 text-primary" />
+                    <div className="w-10 h-10 rounded-xl bg-gradient-primary/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {p.icon === "logo" ? (
+                        <img src={logoSrc} alt={`${LAB.name} logo`} className="h-6 w-6 object-contain" />
+                      ) : (
+                        <p.icon className="h-5 w-5 text-primary" />
+                      )}
                     </div>
                     <span className="font-semibold text-foreground leading-snug">{p.text}</span>
                   </div>
@@ -348,7 +357,11 @@ const Index = () => {
                   </Link>
                 </Button>
 
-                <Button asChild size="lg" className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto">
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-xl font-semibold bg-gradient-secondary hover:opacity-90 w-full sm:w-auto"
+                >
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     Book on WhatsApp
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -368,7 +381,9 @@ const Index = () => {
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
                 Why Choose Us
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">Quality You Can Trust</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-6 sm:mb-8">
+                Quality You Can Trust
+              </h2>
 
               <div className="space-y-5 sm:space-y-6">
                 {[
@@ -418,7 +433,7 @@ const Index = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-semibold mb-4">
               Simple Process
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">How It Works</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-3 sm:mb-4">How It Works</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
               A clear, respectful process—from arrival to results.
             </p>
@@ -473,7 +488,12 @@ const Index = () => {
               </a>
             </Button>
 
-            <Button size="lg" variant="secondary" asChild className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto">
+            <Button
+              size="lg"
+              variant="secondary"
+              asChild
+              className="rounded-xl font-semibold text-base px-8 py-6 shadow-lg w-full sm:w-auto"
+            >
               <Link to="/contact">
                 Contact Page
                 <ArrowRight className="ml-2 h-5 w-5" />

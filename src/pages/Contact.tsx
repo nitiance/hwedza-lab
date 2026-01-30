@@ -65,6 +65,9 @@ const Contact = () => {
   const [preferredDay, setPreferredDay] = useState("");
   const [notes, setNotes] = useState("");
 
+  // Put your logo here: place a file at /public/logo.png (Vercel-safe, no import headaches)
+  const logoSrc = "/logo.png";
+
   // Single source of truth: the message preview is exactly what we send
   const message = useMemo(
     () => buildBookingMessage({ name, test, preferredDay, notes }),
@@ -93,11 +96,19 @@ const Contact = () => {
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="container relative">
           <div className="max-w-3xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              Contact Us
-            </span>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                Contact Us
+              </span>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              {/* Company Logo (client request). If logo missing, it just won’t load (no build fail). */}
+              <div className="hidden sm:flex items-center justify-center h-11 w-11 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
+                <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
+              </div>
+            </div>
+
+            {/* Client request: match this font size to "Your Health, Our Priority" */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
               Book a Test or Get in Touch
             </h1>
 
@@ -393,9 +404,7 @@ const Contact = () => {
               {/* Mobile-first CTA */}
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="font-bold mb-2">Fastest way to book</div>
-                <p className="text-muted-foreground text-sm mb-4">
-                  WhatsApp is usually quickest for pricing and availability.
-                </p>
+                <p className="text-muted-foreground text-sm mb-4">WhatsApp is usually quickest for pricing and availability.</p>
                 <Button asChild className="rounded-xl font-semibold w-full">
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     <MessageCircle className="mr-2 h-5 w-5" />
@@ -411,4 +420,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;
