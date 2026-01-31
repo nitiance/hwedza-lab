@@ -131,19 +131,18 @@ const Index = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-background/20 backdrop-blur-sm border border-border/40 text-foreground">
                 <Sparkles className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-medium">Reliable • Affordable • Timely</span>
+                <span className="text-sm font-medium">
+  Fast Accurate Results
+</span>
               </div>
 
               {/* Company Logo (client request). If logo missing, it just won’t load (no build fail). */}
-              <div className="hidden sm:flex items-center justify-center h-11 w-11 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
-                <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
-              </div>
+              <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
+  <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
+</div>
             </div>
 
             {/* Client request: Lab name must be bigger, same font style, and above the tagline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
-              {LAB.name}
-            </h1>
 
             {/* Client request: tagline smaller than lab name */}
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-foreground/95">
