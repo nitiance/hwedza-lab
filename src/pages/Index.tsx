@@ -2,6 +2,7 @@
 // BinanceXI — build watermark (do not remove)
 
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -114,8 +115,56 @@ const Index = () => {
   // Put your logo here: place a file at /public/logo.png (Vercel-safe, no import headaches)
   const logoSrc = "/logo.png";
 
+  // SEO (no visible text changes)
+  const siteUrl =
+    (import.meta as any).env?.VITE_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+  const pageUrl = `${siteUrl}/`;
+  const pageTitle = `${LAB.name} | Trusted Diagnostics`;
+  const pageDesc =
+    "We provide accurate, timely, and affordable testing to support better health outcomes. Every sample represents a person, a family, and a life—so we handle every test with care, respect, and confidentiality.";
+  const ogImage = `${siteUrl}${heroLab.startsWith("/") ? heroLab : `/${heroLab}`}`;
+
   return (
     <Layout>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <link rel="canonical" href={pageUrl} />
+
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDesc} />
+        <meta name="twitter:image" content={ogImage} />
+
+        {/* Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalBusiness",
+            name: LAB.name,
+            url: pageUrl,
+            telephone: (LAB as any).phoneTel || undefined,
+            email: (LAB as any).email || undefined,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: (LAB as any).addressFull,
+              addressCountry: "ZW",
+            },
+          })}
+        </script>
+      </Helmet>
+
       {/* HERO */}
       <section className="relative min-h-[78vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -131,18 +180,18 @@ const Index = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-background/20 backdrop-blur-sm border border-border/40 text-foreground">
                 <Sparkles className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-medium">
-  Fast Accurate Results
-</span>
+                <span className="text-sm font-medium">Fast Accurate Results</span>
               </div>
 
-              {/* Company Logo (client request). If logo missing, it just won’t load (no build fail). */}
+              {/* Company Logo */}
               <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-background/20 backdrop-blur-sm border border-border/40 overflow-hidden">
-  <img src={logoSrc} alt={`${LAB.name} logo`} className="h-full w-full object-contain p-1.5" />
-</div>
+                <img
+                  src={logoSrc}
+                  alt={`${LAB.name} logo`}
+                  className="h-full w-full object-contain p-1.5"
+                />
+              </div>
             </div>
-
-            {/* Client request: Lab name must be bigger, same font style, and above the tagline */}
 
             {/* Client request: tagline smaller than lab name */}
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-foreground/95">
@@ -313,7 +362,6 @@ const Index = () => {
                   About Us
                 </span>
 
-                {/* Client request: don’t restrict to Wedza */}
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight mb-4 sm:mb-6">
                   Trusted Diagnostics for <span className="text-primary">Our Community</span>
                 </h2>

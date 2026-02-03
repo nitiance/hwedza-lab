@@ -17,6 +17,8 @@ import {
   FileText,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { SITE } from "@/config/site";
 import {
   LAB,
   buildMailtoLink,
@@ -85,12 +87,53 @@ const Contact = () => {
   const phoneList = useMemo(() => {
     const primary = LAB.phoneTel || "";
     const extras = Array.isArray(LAB.phones) ? LAB.phones : [];
-    // Ensure primary is included once, then add the rest
     return [primary, ...extras].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
   }, []);
 
+  // ✅ SEO
+  const canonical = `${SITE.domain}/contact`;
+  const title = `Contact ${LAB.name} | Book a Lab Test`;
+  const description =
+    "Contact Wedza Medical Centre Laboratory to book a test or ask about pricing, availability, and turnaround times. WhatsApp, call, email, or get directions.";
+
+  // ✅ JSON-LD (helps Google understand the business)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    name: LAB.name,
+    url: SITE.domain,
+    telephone: LAB.phoneTel || undefined,
+    email: LAB.email || undefined,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: LAB.addressFull,
+      addressCountry: "ZW",
+    },
+  };
+
   return (
     <Layout>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+
+        <meta name="robots" content="index,follow" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+
       {/* Contact hero */}
       <section className="relative pt-24 sm:pt-32 pb-10 sm:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
@@ -107,7 +150,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Client request: match this font size to "Your Health, Our Priority" */}
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
               Book a Test or Get in Touch
             </h1>
@@ -404,7 +446,9 @@ const Contact = () => {
               {/* Mobile-first CTA */}
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="font-bold mb-2">Fastest way to book</div>
-                <p className="text-muted-foreground text-sm mb-4">WhatsApp is usually quickest for pricing and availability.</p>
+                <p className="text-muted-foreground text-sm mb-4">
+                  WhatsApp is usually quickest for pricing and availability.
+                </p>
                 <Button asChild className="rounded-xl font-semibold w-full">
                   <a href={whatsappLink} target="_blank" rel="noreferrer">
                     <MessageCircle className="mr-2 h-5 w-5" />

@@ -4,6 +4,8 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { SITE } from "@/config/site";
 import {
   Target,
   Eye,
@@ -127,8 +129,48 @@ const About = () => {
   // Client logo: keep it in /public/logo.png (no import headaches)
   const logoSrc = "/logo.png";
 
+  // SEO
+  const canonical = `${SITE.domain}/about`;
+  const title = `About ${LAB.name} | Diagnostic Laboratory`;
+  const description =
+    "Learn about Wedza Medical Centre Laboratory — our mission, values, leadership, and commitment to accurate, timely, and affordable diagnostic testing services.";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    name: LAB.name,
+    url: SITE.domain,
+    telephone: LAB.phoneTel || undefined,
+    email: LAB.email || undefined,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: LAB.addressFull,
+      addressCountry: "ZW",
+    },
+  };
+
   return (
     <Layout>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta name="robots" content="index,follow" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+
       {/* BinanceXI watermark — About page */}
       {/* HERO */}
       <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-14 sm:pb-18 lg:pb-20 overflow-hidden">

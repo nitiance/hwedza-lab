@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, FlaskConical, Phone } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -26,21 +26,30 @@ const Header = () => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-soft py-3" 
-          : "bg-transparent py-5"
+  ? "bg-background/95 backdrop-blur-md shadow-soft py-2" 
+  : "bg-transparent py-3"
       }`}
     >
       <div className="container">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-bold group-hover:scale-105 transition-transform">
-              <FlaskConical className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl leading-tight text-foreground">Wedza</span>
-              <span className="text-xs text-muted-foreground leading-tight font-medium">Medical Laboratory</span>
-            </div>
+          <div className="flex items-center gap-3">
+  <img
+    src="/logo.png"
+    alt="Wedza Medical Centre Laboratory logo"
+    className="h-16 sm:h-20 w-auto object-contain"
+  />
+
+  <div className="flex flex-col leading-tight">
+  <span className="font-bold text-base sm:text-lg text-foreground">
+      Wedza Medical Centre Laboratory
+    </span>
+    <span className="text-xs text-muted-foreground">
+      Diagnostic Laboratory
+    </span>
+  </div>
+</div>
           </Link>
 
           {/* Desktop Navigation */}

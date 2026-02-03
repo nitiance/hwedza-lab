@@ -2,7 +2,7 @@
 // BinanceXI — build watermark (do not remove)
 
 import { Link } from "react-router-dom";
-import { FlaskConical, Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LAB, LAB_HOURS_LINE, buildMailtoLink, buildMapsLink, buildTelLink, buildWhatsAppLink } from "@/config/lab";
 
@@ -26,9 +26,13 @@ const Footer = () => {
           {/* Brand / summary */}
           <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
-                <FlaskConical className="h-6 w-6 text-primary-foreground" />
-              </div>
+            <div className="flex items-center gap-3">
+  <img
+    src="/logo.png"
+    alt="Wedza Medical Centre Laboratory logo"
+    className="h-16 sm:h-18 w-auto object-contain"
+  />
+</div>
 
               <div className="flex flex-col">
                 <span className="font-bold text-xl leading-tight text-background">{LAB.name}</span>
