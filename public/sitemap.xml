@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://wedzalab.com/</loc></url>
-  <url><loc>https://wedzalab.com/about</loc></url>
-  <url><loc>https://wedzalab.com/contact</loc></url>
+  <url>
+    <loc>https://hwedza.com/</loc>
+  </url>
+  <url>
+    <loc>https://hwedza.com/about</loc>
+  </url>
+  <url>
+    <loc>https://hwedza.com/contact</loc>
+  </url>
 </urlset>
