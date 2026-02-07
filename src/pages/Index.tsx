@@ -117,7 +117,8 @@ const Index = () => {
 
   // SEO (no visible text changes)
   const siteUrl =
-    (import.meta as any).env?.VITE_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+    (import.meta as any).env?.VITE_SITE_URL?.replace(/\/$/, "") ||
+    (typeof window !== "undefined" ? window.location.origin : "https://hwedza.com");
   const pageUrl = `${siteUrl}/`;
   const pageTitle = `${LAB.name} | Trusted Diagnostics`;
   const pageDesc =

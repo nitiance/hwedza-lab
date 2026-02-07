@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, FlaskConical, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LAB, buildTelLink } from "@/config/lab";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -22,12 +23,15 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-soft py-3" 
-          : "bg-transparent py-5"
+        scrolled ? "bg-background/95 backdrop-blur-md shadow-soft py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="container">
@@ -50,9 +54,7 @@ const Header = () => {
                 key={link.path}
                 to={link.path}
                 className={`relative text-sm font-semibold transition-colors link-underline ${
-                  location.pathname === link.path
-                    ? "text-primary"
-                    : "text-foreground/70 hover:text-foreground"
+                  location.pathname === link.path ? "text-primary" : "text-foreground/70 hover:text-foreground"
                 }`}
               >
                 {link.name}
@@ -62,8 +64,8 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <a 
-              href="tel:+263000000000" 
+            <a
+              href={buildTelLink(LAB.phoneTel)}
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               <Phone className="h-4 w-4" />
@@ -79,6 +81,7 @@ const Header = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 rounded-xl hover:bg-muted transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -94,9 +97,7 @@ const Header = () => {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
-                    location.pathname === link.path
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-muted"
+                    location.pathname === link.path ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
                   }`}
                 >
                   {link.name}
@@ -116,5 +117,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

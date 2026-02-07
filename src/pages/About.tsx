@@ -133,8 +133,8 @@ const About = () => {
   const canonical = `${SITE.domain}/about`;
   const title = `About ${LAB.name} | Diagnostic Laboratory`;
   const description =
-    "Learn about Wedza Medical Centre Laboratory — our mission, values, leadership, and commitment to accurate, timely, and affordable diagnostic testing services.";
-
+    `Learn about ${LAB.name} — a medical laboratory located in Hwedza, Zimbabwe. Our mission, values, leadership, and commitment to accurate, timely, and affordable diagnostic testing.`;
+    const ogImage = `${SITE.domain}${heroLab.startsWith("/") ? heroLab : `/${heroLab}`}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
@@ -162,11 +162,13 @@ const About = () => {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
 
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>

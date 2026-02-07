@@ -94,7 +94,8 @@ const Contact = () => {
   const canonical = `${SITE.domain}/contact`;
   const title = `Contact ${LAB.name} | Book a Lab Test`;
   const description =
-    "Contact Wedza Medical Centre Laboratory to book a test or ask about pricing, availability, and turnaround times. WhatsApp, call, email, or get directions.";
+  `Contact ${LAB.name} to book a lab test or ask about pricing, availability, and turnaround times. WhatsApp, call, email, or get directions.`;
+  const ogImage = `${SITE.domain}${"/logo.png"}`;
 
   // ✅ JSON-LD (helps Google understand the business)
   const jsonLd = {
@@ -125,12 +126,12 @@ const Contact = () => {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
-
+        <meta property="og:image" content={ogImage} />
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-
+        <meta name="twitter:image" content={ogImage} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

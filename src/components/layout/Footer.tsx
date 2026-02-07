@@ -8,9 +8,7 @@ import { LAB, LAB_HOURS_LINE, buildMailtoLink, buildMapsLink, buildTelLink, buil
 
 const Footer = () => {
   // Default WhatsApp enquiry message (simple + consistent)
-  const whatsappLink = buildWhatsAppLink(
-    `Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`
-  );
+  const whatsappLink = buildWhatsAppLink(`Hello ${LAB.name}. I’d like to ask about your services and how to book a test.`);
 
   // Default email enquiry message
   const mailtoLink = buildMailtoLink(
@@ -26,19 +24,15 @@ const Footer = () => {
           {/* Brand / summary */}
           <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-3">
-            <div className="flex items-center gap-3">
-  <img
-    src="/logo.png"
-    alt="Wedza Medical Centre Laboratory logo"
-    className="h-16 sm:h-18 w-auto object-contain"
-  />
-</div>
+              <img
+                src="/logo.png"
+                alt={`${LAB.name} logo`}
+                className="h-16 sm:h-18 w-auto object-contain"
+              />
 
               <div className="flex flex-col">
                 <span className="font-bold text-xl leading-tight text-background">{LAB.name}</span>
-                <span className="text-xs text-background/60 leading-tight font-medium">
-                  Diagnostic Laboratory
-                </span>
+                <span className="text-xs text-background/60 leading-tight font-medium">Diagnostic Laboratory</span>
               </div>
             </Link>
 
@@ -75,10 +69,7 @@ const Footer = () => {
                 { name: "Contact", path: "/contact" },
               ].map((link) => (
                 <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-background/70 hover:text-background transition-colors font-medium"
-                  >
+                  <Link to={link.path} className="text-background/70 hover:text-background transition-colors font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -121,10 +112,7 @@ const Footer = () => {
               {/* Phone */}
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-secondary flex-shrink-0" />
-                <a
-                  href={buildTelLink()}
-                  className="text-background/70 hover:text-background transition-colors"
-                >
+                <a href={buildTelLink(LAB.phoneTel)} className="text-background/70 hover:text-background transition-colors">
                   {LAB.phoneDisplay}
                 </a>
               </li>
@@ -132,10 +120,7 @@ const Footer = () => {
               {/* Email */}
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-secondary flex-shrink-0" />
-                <a
-                  href={mailtoLink}
-                  className="text-background/70 hover:text-background transition-colors break-all"
-                >
+                <a href={mailtoLink} className="text-background/70 hover:text-background transition-colors break-all">
                   {LAB.email}
                 </a>
               </li>
@@ -148,12 +133,9 @@ const Footer = () => {
       <div className="border-t border-background/10">
         <div className="container py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/50">
-            <p>
-              © {new Date().getFullYear()} {LAB.name}. All rights reserved.
-            </p>
+            <p>© {new Date().getFullYear()} {LAB.name}. All rights reserved.</p>
             <p className="text-xs text-center md:text-right max-w-xl">
-              This website provides general information only. For diagnosis and treatment, consult a qualified
-              healthcare provider.
+              This website provides general information only. For diagnosis and treatment, consult a qualified healthcare provider.
             </p>
           </div>
         </div>
