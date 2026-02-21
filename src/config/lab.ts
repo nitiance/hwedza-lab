@@ -9,16 +9,15 @@ export const LAB = {
   name: "Wedza Medical Centre Laboratory",
 
   // Primary contact numbers (as displayed publicly)
-  phoneDisplay: "+263 775 243 241",
-  phoneTel: "+263775243241",
+  phoneDisplay: "+263 719 278 360",
+  phoneTel: "+263719278360",
   phones: [
-    "+263775243241",
-    "+263773862907",
+    "+263719278360",
     "+263716308106",
   ],
 
   // Primary WhatsApp line
-  whatsappNumber: "+263775243241",
+  whatsappNumber: "+263719278360",
 
   // Official email
   email: "wmcl2014@gmail.com",
